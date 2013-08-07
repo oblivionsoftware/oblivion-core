@@ -3,7 +3,7 @@
 #ifndef _OBLIVION_CORE_EXCEPTION_H_
 #define _OBLIVION_CORE_EXCEPTION_H_
 
-#include <exception>
+#include <stdexcept>
 #include <string>
 
 #include <oblivion/core/base.h>
