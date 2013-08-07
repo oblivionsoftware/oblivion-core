@@ -30,12 +30,15 @@ IF(UNIX)
 ENDIF()
 
 SET(CORE_HEADERS
+    "include/oblivion/core/algorithm.h"
+    "include/oblivion/core/algorithm_inl.h"
     "include/oblivion/core/base.h"
     "include/oblivion/core/dynamic_lib.h"
     "include/oblivion/core/exception.h"
     "include/oblivion/core/file.h"
     "include/oblivion/core/random.h"
     "include/oblivion/core/string_util.h"
+    "include/oblivion/core/string_util_inl.h"
     "include/oblivion/core/types.h"
     "include/oblivion/core/windows.h")
 
@@ -50,6 +53,7 @@ ENDIF()
 SET(TEST_SOURCES
     "test/gtest/gtest-all.cc"
     "test/main.cpp"
+    "test/oblivion/core/algorithm_test.cpp"
     "test/oblivion/core/file_test.cpp"
     "test/oblivion/core/string_util_test.cpp"
     "test/oblivion/core/types_test.cpp")

@@ -2,9 +2,8 @@
 
 #include <gtest/gtest.h>
 
-#include <oblivion/core/file.h>
-
 #include <oblivion/core/exception.h>
+#include <oblivion/core/file.h>
 
 namespace oblivion {
 
