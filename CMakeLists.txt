@@ -31,7 +31,7 @@ SET(CORE_HEADERS
     "include/oblivion/core/types.h"
     "include/oblivion/core/windows.h")
 
-ADD_LIBRARY(oblivion-core ${CORE_SOURCES} ${CORE_HEADERS})
+ADD_LIBRARY(oblivion-core SHARED ${CORE_SOURCES} ${CORE_HEADERS})
 SET_TARGET_PROPERTIES(oblivion-core PROPERTIES
     COMPILE_FLAGS "-D_CRT_SECURE_NO_WARNINGS -DOBLIVION_CORE_EXPORTS")
 
