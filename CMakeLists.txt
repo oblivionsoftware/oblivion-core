@@ -2,8 +2,10 @@ PROJECT(oblivion-core)
 
 CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
 
-IF(UNIX)
+IF(APPLE)
     SET(CMAKE_CXX_FLAGS "-Wall -Werror -pedantic -std=c++11 -stdlib=libc++ -fPIC")
+ELSEIF(UNIX)
+    SET(CMAKE_CXX_FLAGS "-Wall -Werror -pedantic -std=c++11 -fPIC")
 ENDIF()
 
 INCLUDE_DIRECTORIES(include)
