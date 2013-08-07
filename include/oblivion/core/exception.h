@@ -13,7 +13,7 @@
  * Macro for throwing an exception that injects the correct file, function, and line number.
  * @param message The message to throw.
  */
-#define OB_THROW(message) throw oblivion::Exception((message), __FUNCTION__, __FILE__, __LINE__)
+#define OB_THROW(message) throw oblivion::Exception((message), __FILE__, __FUNCTION__, __LINE__)
 
 namespace oblivion {
 
