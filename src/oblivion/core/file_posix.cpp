@@ -9,8 +9,8 @@ namespace oblivion {
 /*****************************************************************************/
 
 bool File::exists(const char* path) {
-	struct stat st;
-	return stat(path, &st) == 0;
+    struct stat st;
+    return stat(path, &st) == 0;
 }
 
 /*****************************************************************************/

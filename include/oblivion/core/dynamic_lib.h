@@ -9,39 +9,39 @@
 
 namespace oblivion {
 
-	/**
-	 * Loads/Unloads shared libraries dynamically and provides access to symbols.
-	 */
-	class OB_CORE_API DynamicLib {
+    /**
+     * Loads/Unloads shared libraries dynamically and provides access to symbols.
+     */
+    class OB_CORE_API DynamicLib {
 
-	public:
+    public:
 
-		/**
-		 * Opens the specified dynamic library.
-		 * @param path The path to the library to open.
-		 * @throw Exception if the library cannot be opened.
-		 */
-		explicit DynamicLib(const char* path);
+        /**
+         * Opens the specified dynamic library.
+         * @param path The path to the library to open.
+         * @throw Exception if the library cannot be opened.
+         */
+        explicit DynamicLib(const char* path);
 
-		/**
-		 * Closes the dynamic library.
-		 */
-		~DynamicLib();
+        /**
+         * Closes the dynamic library.
+         */
+        ~DynamicLib();
 
-		/**
-		 * Gets a pointer to the function with the specified name.
-		 * @param name The name of the function.
-		 * @return A pointer to the function.
-		 * @throw Exception if the function cannot be found.
-		 */
-		void* getFunction(const char* name);
+        /**
+         * Gets a pointer to the function with the specified name.
+         * @param name The name of the function.
+         * @return A pointer to the function.
+         * @throw Exception if the function cannot be found.
+         */
+        void* getFunction(const char* name);
 
-	private:
+    private:
 
-		struct Impl;
-		std::unique_ptr<Impl> impl_;
+        struct Impl;
+        std::unique_ptr<Impl> impl_;
 
-	};
+    };
 
 }
 

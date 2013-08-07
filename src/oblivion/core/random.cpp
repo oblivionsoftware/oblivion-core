@@ -10,14 +10,14 @@ namespace oblivion {
 /*****************************************************************************/
 
 Random::Random() {
-	auto seed = static_cast<int32>(time(nullptr));
-	init(seed);	
+    auto seed = static_cast<int32>(time(nullptr));
+    init(seed); 
 }
 
 /*****************************************************************************/
 
 Random::Random(int32 seed) {
-	init(seed);
+    init(seed);
 }
 
 /*****************************************************************************/
@@ -41,36 +41,36 @@ int32 Random::next() {
 /*****************************************************************************/
 
 int32 Random::nextRange(int32 rangeEnd) {
-	return next() % rangeEnd;
+    return next() % rangeEnd;
 }
 
 /*****************************************************************************/
 
 bool Random::nextBool() {
-	return (next() % 2) == 0;
+    return (next() % 2) == 0;
 }
 
 /*****************************************************************************/
 
 real32 Random::nextReal() {
-	return static_cast<real32>(next() / std::numeric_limits<int32>::max());
+    return static_cast<real32>(next() / std::numeric_limits<int32>::max());
 }
 
 /*****************************************************************************/
 
 void Random::init(int32 seed) {
-	index_ = 0;
-	mt_[0] = seed;
+    index_ = 0;
+    mt_[0] = seed;
 
-	for (int i = 1; i < 624; ++i) {
-		mt_[i] = (0x6c078965 * (mt_[i - 1] ^ (mt_[i - 1] >> 30))) + i;
-	}
+    for (int i = 1; i < 624; ++i) {
+        mt_[i] = (0x6c078965 * (mt_[i - 1] ^ (mt_[i - 1] >> 30))) + i;
+    }
 }
 
 /*****************************************************************************/
 
 void Random::generateNumbers() {
-	for (int32 i = 0; i < 624; ++i) {
+    for (int32 i = 0; i < 624; ++i) {
         int32 y = (mt_[i] & 0x80000000) + (mt_[(i + 1) % 624] & 0x7fffffff);
         mt_[i] = mt_[(i + 397) % 624] ^ (y >> 1);
         

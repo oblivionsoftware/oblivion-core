@@ -11,32 +11,32 @@ namespace oblivion {
 /*****************************************************************************/
 
 File::File(const char* path, const char* mode) {
-	file_ = fopen(path, mode);
+    file_ = fopen(path, mode);
 
-	if (!file_) {
-		OB_THROW(std::string("Unable to open file: ") + path);
-	}
+    if (!file_) {
+        OB_THROW(std::string("Unable to open file: ") + path);
+    }
 }
 
 /*****************************************************************************/
 
 File::~File() {
-	close();
+    close();
 }
 
 /*****************************************************************************/
 
 void File::close() {
-	if (file_) {
-		fclose(file_);
-		file_ = nullptr;
-	}
+    if (file_) {
+        fclose(file_);
+        file_ = nullptr;
+    }
 }
 
 /*****************************************************************************/
 
 void File::seek(long int offset, int origin) {
-	if (fseek(file_, offset, origin) != 0) {
+    if (fseek(file_, offset, origin) != 0) {
         OB_THROW("fseek failed");
     }
 }
@@ -44,31 +44,31 @@ void File::seek(long int offset, int origin) {
 /*****************************************************************************/
 
 long int File::position() {
-	auto result = ftell(file_);
+    auto result = ftell(file_);
 
-	if (result == -1) {
-		OB_THROW("ftell failed");
-	}
+    if (result == -1) {
+        OB_THROW("ftell failed");
+    }
 
-	return result;
+    return result;
 }
 
 /*****************************************************************************/
 
 size_t File::read(size_t size, void* out) {
-	auto result = fread(out, 1, size, file_);
+    auto result = fread(out, 1, size, file_);
 
-	if (result != size && !feof(file_)) {
-		OB_THROW("fread failed");
-	}
+    if (result != size && !feof(file_)) {
+        OB_THROW("fread failed");
+    }
 
-	return result;
+    return result;
 }
 
 /*****************************************************************************/
 
 void File::write(size_t size, void* data) {
-	if (fwrite(data, size, 1, file_) != 1) {
+    if (fwrite(data, size, 1, file_) != 1) {
         OB_THROW("fwrite failed");
     }
 }
@@ -76,27 +76,27 @@ void File::write(size_t size, void* data) {
 /*****************************************************************************/
 
 size_t File::size() {
-	auto current = position();
+    auto current = position();
 
-	seek(0, SEEK_END);
-	auto result = position();
-	seek(current, SEEK_SET);
+    seek(0, SEEK_END);
+    auto result = position();
+    seek(current, SEEK_SET);
 
-	return result;
+    return result;
 }
 
 /*****************************************************************************/
 
 bool File::eof() {
-	return feof(file_) != 0;
+    return feof(file_) != 0;
 }
 
 /*****************************************************************************/
 
 void File::remove(const char* path) {
-	if (std::remove(path) != 0) {
-		OB_THROW(std::string("Unable to remove file: ") + path);
-	}
+    if (std::remove(path) != 0) {
+        OB_THROW(std::string("Unable to remove file: ") + path);
+    }
 }
 
 /*****************************************************************************/

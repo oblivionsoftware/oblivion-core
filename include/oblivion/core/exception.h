@@ -17,58 +17,58 @@
 
 namespace oblivion {
 
-	/**
-	 * Base class for all exceptions thrown by oblivion libraries.
-	 */
-	class OB_CORE_API Exception : public std::runtime_error {
+    /**
+     * Base class for all exceptions thrown by oblivion libraries.
+     */
+    class OB_CORE_API Exception : public std::runtime_error {
 
-	public:
+    public:
 
-		/**
-		 * Constructs an exception with the specified error message.
-		 * @param what The error message.
-		 * @param file The name of the file.
-		 * @param function The name of the function throwing the error.
-		 * @param line The line number.
-		 */
-		explicit Exception(const std::string& what, const char* file = nullptr, const char* function = nullptr, int32 line = -1);
+        /**
+         * Constructs an exception with the specified error message.
+         * @param what The error message.
+         * @param file The name of the file.
+         * @param function The name of the function throwing the error.
+         * @param line The line number.
+         */
+        explicit Exception(const std::string& what, const char* file = nullptr, const char* function = nullptr, int32 line = -1);
 
-		/**
-		 * Constructs an exception with the specified error message.
-		 * @param what The error message.
-		 * @param file The name of the file.
-		 * @param function The name of the function throwing the error.
-		 * @param line The line number.
-		 */
-		explicit Exception(const char* what, const char* file = nullptr, const char* function = nullptr, int32 line = -1);
+        /**
+         * Constructs an exception with the specified error message.
+         * @param what The error message.
+         * @param file The name of the file.
+         * @param function The name of the function throwing the error.
+         * @param line The line number.
+         */
+        explicit Exception(const char* what, const char* file = nullptr, const char* function = nullptr, int32 line = -1);
 
-		/**
-		 * Gets the line number where the exception was thrown.
-		 * @return The line number.
-		 */
-		int32 line() const;
+        /**
+         * Gets the line number where the exception was thrown.
+         * @return The line number.
+         */
+        int32 line() const;
 
-		/**
-		 * Gets the name of the file from which the exception was thrown.
-		 * @return The name of the file.
-		 */
-		const std::string& file() const;
+        /**
+         * Gets the name of the file from which the exception was thrown.
+         * @return The name of the file.
+         */
+        const std::string& file() const;
 
-		/**
-		 * Gets the name of the function from which the exception was thrown.
-		 * @return The name of the function.
-		 */
-		const std::string& function() const;
+        /**
+         * Gets the name of the function from which the exception was thrown.
+         * @return The name of the function.
+         */
+        const std::string& function() const;
 
-	private:
+    private:
 
-		std::string file_;
+        std::string file_;
 
-		std::string function_;
+        std::string function_;
 
-		int32 line_;		
+        int32 line_;        
 
-	};
+    };
 
 }
 

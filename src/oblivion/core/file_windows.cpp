@@ -9,8 +9,8 @@ namespace oblivion {
 /*****************************************************************************/
 
 bool File::exists(const char* path) {
-	DWORD attr = GetFileAttributes(path);
-	return 0xFFFFFFFF != attr;
+    DWORD attr = GetFileAttributes(path);
+    return 0xFFFFFFFF != attr;
 }
 
 /*****************************************************************************/
