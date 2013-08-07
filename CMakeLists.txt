@@ -13,7 +13,8 @@ INCLUDE_DIRECTORIES(test)
 
 SET(CORE_SOURCES
     "src/oblivion/core/exception.cpp"
-    "src/oblivion/core/file.cpp")
+    "src/oblivion/core/file.cpp"
+    "src/oblivion/core/random.cpp")
 
 IF(WIN32)
     SET(CORE_SOURCES ${CORE_SOURCES}
@@ -32,12 +33,17 @@ SET(CORE_HEADERS
     "include/oblivion/core/dynamic_lib.h"
     "include/oblivion/core/exception.h"
     "include/oblivion/core/file.h"
+    "include/oblivion/core/random.h"
     "include/oblivion/core/types.h"
     "include/oblivion/core/windows.h")
 
 ADD_LIBRARY(oblivion-core SHARED ${CORE_SOURCES} ${CORE_HEADERS})
 SET_TARGET_PROPERTIES(oblivion-core PROPERTIES
     COMPILE_FLAGS "-D_CRT_SECURE_NO_WARNINGS -DOBLIVION_CORE_EXPORTS")
+
+IF (UNIX)
+    TARGET_LINK_LIBRARIES(oblivion-core dl)
+ENDIF()
 
 SET(TEST_SOURCES
     "test/gtest/gtest-all.cc"
