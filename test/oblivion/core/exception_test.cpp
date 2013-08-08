@@ -29,4 +29,20 @@ TEST(ExceptionTest, Message) {
 
 /*****************************************************************************/
 
+TEST(ExceptionTest, BaseMessage) {
+    int32 line;
+
+    try {
+        line = __LINE__;
+        OB_THROW("Sample Message");
+    } catch (std::exception& ex) {
+        EXPECT_TRUE(contains(ex.what(), "Sample Message"));
+        EXPECT_TRUE(contains(ex.what(), "exception_test.cpp"));
+        EXPECT_TRUE(contains(ex.what(), "BaseMessage"));
+        EXPECT_TRUE(contains(ex.what(), toString(line + 1)));
+    }
+}
+
+/*****************************************************************************/
+
 }
