@@ -74,6 +74,6 @@ ADD_TEST(unit_tests oblivion-core-test)
 
 # cppcheck
 ADD_CUSTOM_TARGET(cppcheck
-    cppcheck -I ${CMAKE_CURRENT_SOURCE_DIR}/include ${CMAKE_CURRENT_SOURCE_DIR}/src
+    cppcheck --xml -I ${CMAKE_CURRENT_SOURCE_DIR}/include ${CMAKE_CURRENT_SOURCE_DIR}/src 2> cppcheck-report.xml
     WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
     COMMENT "Performing static analysis with cppcheck" VERBATIM)
