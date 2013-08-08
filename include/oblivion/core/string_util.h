@@ -53,6 +53,22 @@ namespace oblivion {
     OB_CORE_API std::string camelCaseToUnderscores(const std::string& input);
 
     /**
+     * Gets whether or not a string contains the specified substring.
+     * @param input The input string.
+     * @param search The string to search for.
+     * @return True if the input string contains search, false otherwise.
+     */
+    OB_CORE_API bool contains(const std::string& input, const std::string& search);
+
+    /**
+     * Gets whether or not a string ends with the specified substring.
+     * @param input The input string.
+     * @param search The string to check for.
+     * @return True if the input string ends with the search string, false otherwise.
+     */
+    OB_CORE_API bool endsWith(const std::string& input, const std::string& search);
+
+    /**
      * Converts from a value to a string.
      * @param value The value to convert.
      * @return The string representation of value.

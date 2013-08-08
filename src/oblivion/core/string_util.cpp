@@ -145,6 +145,24 @@ std::string camelCaseToUnderscores(const std::string& input) {
 
 /******************************************************************************/
 
+bool contains(const std::string& input, const std::string& search) {
+    return input.find(search) != std::string::npos;
+}
+
+/******************************************************************************/
+
+bool endsWith(const std::string& input, const std::string& search) {
+    auto pos = input.rfind(search);
+
+    if (pos == std::string::npos) {
+        return false;
+    }
+
+    return pos == (input.size() - search.size());
+}
+
+/******************************************************************************/
+
 template <>
 std::string toString(const bool& value) {
     return value ? "true" : "false";

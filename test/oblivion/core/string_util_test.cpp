@@ -71,7 +71,7 @@ TEST(StringUtilTest, CamelCaseToUnderscores) {
 
 /******************************************************************************/
 
-TEST(StringUtilTest, toString) {
+TEST(StringUtilTest, ToString) {
     EXPECT_EQ("", toString(""));
     EXPECT_EQ("true", toString(true));
     EXPECT_EQ("false", toString(false));
@@ -83,7 +83,7 @@ TEST(StringUtilTest, toString) {
 
 /******************************************************************************/
 
-TEST(StringUtilTest, fromString) {
+TEST(StringUtilTest, FromString) {
     EXPECT_EQ("", fromString<std::string>(""));
     EXPECT_TRUE(fromString<bool>("true"));
     EXPECT_FALSE(fromString<bool>("false"));
@@ -91,6 +91,26 @@ TEST(StringUtilTest, fromString) {
     EXPECT_EQ(-342, fromString<int>("-342"));
     EXPECT_EQ("asdf", fromString<std::string>("asdf"));
     EXPECT_EQ("asdf asdf", fromString<std::string>("asdf asdf"));
+}  
+
+/******************************************************************************/
+
+TEST(StringUtilTest, Contains) {
+    EXPECT_TRUE(contains("1234", "1"));
+    EXPECT_FALSE(contains("1234", "5"));
+    EXPECT_FALSE(contains("", "a"));
+    EXPECT_TRUE(contains("", ""));
+} 
+
+/******************************************************************************/
+
+TEST(StringUtilTest, EndsWith) {
+    EXPECT_TRUE(endsWith("1234", "4"));
+    EXPECT_TRUE(endsWith("1234", "34"));
+    EXPECT_FALSE(endsWith("1234", "2"));
+    EXPECT_FALSE(endsWith("1234", "1"));
+    EXPECT_TRUE(endsWith("1234", ""));
+    EXPECT_TRUE(endsWith("", ""));
 }    
 
 /******************************************************************************/

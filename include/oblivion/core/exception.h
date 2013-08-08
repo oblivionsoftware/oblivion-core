@@ -3,7 +3,7 @@
 #ifndef _OBLIVION_CORE_EXCEPTION_H_
 #define _OBLIVION_CORE_EXCEPTION_H_
 
-#include <stdexcept>
+#include <exception>
 #include <string>
 
 #include <oblivion/core/base.h>
@@ -20,33 +20,30 @@ namespace oblivion {
     /**
      * Base class for all exceptions thrown by oblivion libraries.
      */
-    class OB_CORE_API Exception : public std::runtime_error {
+    class OB_CORE_API Exception : public std::exception {
 
     public:
 
         /**
          * Constructs an exception with the specified error message.
-         * @param what The error message.
+         * @param message The error message.
          * @param file The name of the file.
          * @param function The name of the function throwing the error.
          * @param line The line number.
          */
-        explicit Exception(const std::string& what, const char* file = nullptr, const char* function = nullptr, int32 line = -1);
-
-        /**
-         * Constructs an exception with the specified error message.
-         * @param what The error message.
-         * @param file The name of the file.
-         * @param function The name of the function throwing the error.
-         * @param line The line number.
-         */
-        explicit Exception(const char* what, const char* file = nullptr, const char* function = nullptr, int32 line = -1);
+        explicit Exception(const std::string& message, const char* file, const char* function, int32 line);
 
         /**
          * Gets the line number where the exception was thrown.
          * @return The line number.
          */
         int32 line() const;
+
+        /**
+         * Gets the exception message.
+         * @return The exception message.
+         */
+        const std::string& message() const;
 
         /**
          * Gets the name of the file from which the exception was thrown.
@@ -60,7 +57,15 @@ namespace oblivion {
          */
         const std::string& function() const;
 
+        /**
+         * Gets the full exception message.
+         * @return The full message.
+         */
+        virtual const char* what() const throw();
+
     private:
+
+        std::string message_;
 
         std::string file_;
 
@@ -68,6 +73,7 @@ namespace oblivion {
 
         int32 line_;        
 
+        std::string fullMessage_;
     };
 
 }

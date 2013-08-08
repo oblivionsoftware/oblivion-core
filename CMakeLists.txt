@@ -54,6 +54,7 @@ SET(TEST_SOURCES
     "test/gtest/gtest-all.cc"
     "test/main.cpp"
     "test/oblivion/core/algorithm_test.cpp"
+    "test/oblivion/core/exception_test.cpp"
     "test/oblivion/core/file_test.cpp"
     "test/oblivion/core/string_util_test.cpp"
     "test/oblivion/core/types_test.cpp")

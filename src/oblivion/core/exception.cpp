@@ -2,30 +2,34 @@
 
 #include <oblivion/core/exception.h>
 
+#include <sstream>
+
 namespace oblivion {
 
 /*****************************************************************************/
 
-Exception::Exception(const std::string& what, const char* file, const char* function, int32 line) 
-    : std::runtime_error(what),
+Exception::Exception(const std::string& message, const char* file, const char* function, int32 line) 
+    : message_(message),
       file_(file),
       function_(function),
       line_(line) {
-}
 
-/*****************************************************************************/
+    std::stringstream ss;
+    ss << message_ << " - " << function_ << " - " << file_ << "(" << line_ << ")";
 
-Exception::Exception(const char* what, const char* file, const char* function, int32 line) 
-    : std::runtime_error(what),
-      file_(file),
-      function_(function),
-      line_(line) {
+    fullMessage_ = ss.str();
 }
 
 /*****************************************************************************/
 
 int32 Exception::line() const {
     return line_;
+}
+
+/*****************************************************************************/
+
+const std::string& Exception::message() const {
+    return message_;
 }
 
 /*****************************************************************************/
@@ -38,6 +42,12 @@ const std::string& Exception::file() const {
 
 const std::string& Exception::function() const {
     return function_;
+}
+
+/*****************************************************************************/
+
+const char* Exception::what() const throw() {
+    return fullMessage_.c_str();
 }
 
 /*****************************************************************************/
