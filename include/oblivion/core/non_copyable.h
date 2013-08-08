@@ -14,7 +14,7 @@ namespace oblivion {
     protected:
 
         NonCopyable() { }
-        virtual ~NonCopyable() { }
+        ~NonCopyable() { }
 
     private:
 

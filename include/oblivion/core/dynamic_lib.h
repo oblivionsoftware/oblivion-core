@@ -13,7 +13,7 @@ namespace oblivion {
     /**
      * Loads/Unloads shared libraries dynamically and provides access to symbols.
      */
-    class OB_CORE_API DynamicLib : public NonCopyable {
+    class OB_CORE_API DynamicLib : NonCopyable {
 
     public:
 

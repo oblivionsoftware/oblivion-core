@@ -13,7 +13,7 @@ namespace oblivion {
     /**
      * RAII wrapper around stdio FILE.
      */
-    class OB_CORE_API File : public NonCopyable {
+    class OB_CORE_API File : NonCopyable {
 
     public:
 
