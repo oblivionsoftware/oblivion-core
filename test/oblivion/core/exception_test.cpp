@@ -18,7 +18,7 @@ TEST(ExceptionTest, Message) {
     } catch (Exception& ex) {
         EXPECT_EQ("Sample Message", ex.message());
         EXPECT_TRUE(endsWith(ex.file(), "exception_test.cpp"));
-        EXPECT_TRUE(contains(ex.function(), "Message"));
+        EXPECT_TRUE(contains(ex.function(), "TestBody"));
         EXPECT_EQ(line + 1, ex.line());
         EXPECT_TRUE(contains(ex.what(), ex.message()));
         EXPECT_TRUE(contains(ex.what(), ex.file()));
@@ -38,7 +38,7 @@ TEST(ExceptionTest, BaseMessage) {
     } catch (std::exception& ex) {
         EXPECT_TRUE(contains(ex.what(), "Sample Message"));
         EXPECT_TRUE(contains(ex.what(), "exception_test.cpp"));
-        EXPECT_TRUE(contains(ex.what(), "BaseMessage"));
+        EXPECT_TRUE(contains(ex.what(), "TestBody"));
         EXPECT_TRUE(contains(ex.what(), toString(line + 1)));
     }
 }
