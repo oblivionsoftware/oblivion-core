@@ -6,13 +6,14 @@
 #include <memory>
 
 #include <oblivion/core/base.h>
+#include <oblivion/core/non_copyable.h>
 
 namespace oblivion {
 
     /**
      * Loads/Unloads shared libraries dynamically and provides access to symbols.
      */
-    class OB_CORE_API DynamicLib {
+    class OB_CORE_API DynamicLib : public NonCopyable {
 
     public:
 

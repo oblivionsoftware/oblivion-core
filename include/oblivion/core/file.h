@@ -6,13 +6,14 @@
 #include <cstdio>
 
 #include <oblivion/core/base.h>
+#include <oblivion/core/non_copyable.h>
 
 namespace oblivion {
 
     /**
      * RAII wrapper around stdio FILE.
      */
-    class OB_CORE_API File {
+    class OB_CORE_API File : public NonCopyable {
 
     public:
 
