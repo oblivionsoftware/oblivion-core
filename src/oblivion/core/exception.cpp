@@ -23,10 +23,6 @@ Exception::Exception(const std::string& message, const char* file, const char* f
 /*****************************************************************************/
 
 int32 Exception::line() const {
-     int a;
-     int b = 3 + a;
-     std::string bad = "asdf" + 'c';
-
     return line_;
 }
 
