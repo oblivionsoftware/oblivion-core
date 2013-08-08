@@ -61,6 +61,14 @@ namespace oblivion {
     OB_CORE_API bool contains(const std::string& input, const std::string& search);
 
     /**
+     * Gets whether or not a string starts with the specified substring.
+     * @param input The input string.
+     * @param search The string to check for.
+     * @return True if the input string starts with the search string, false otherwise.
+     */
+    OB_CORE_API bool startsWith(const std::string& input, const std::string& search);
+
+    /**
      * Gets whether or not a string ends with the specified substring.
      * @param input The input string.
      * @param search The string to check for.

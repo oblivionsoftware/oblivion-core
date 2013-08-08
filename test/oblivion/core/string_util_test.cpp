@@ -104,6 +104,17 @@ TEST(StringUtilTest, Contains) {
 
 /******************************************************************************/
 
+TEST(StringUtilTest, StartsWith) {
+    EXPECT_TRUE(startsWith("1234", "1"));
+    EXPECT_TRUE(startsWith("1234", "12"));
+    EXPECT_FALSE(startsWith("1234", "4"));
+    EXPECT_FALSE(startsWith("1234", "34"));
+    EXPECT_TRUE(startsWith("1234", ""));
+    EXPECT_TRUE(startsWith("", ""));
+}  
+
+/******************************************************************************/
+
 TEST(StringUtilTest, EndsWith) {
     EXPECT_TRUE(endsWith("1234", "4"));
     EXPECT_TRUE(endsWith("1234", "34"));

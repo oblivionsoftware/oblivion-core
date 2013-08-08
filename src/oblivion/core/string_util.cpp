@@ -151,6 +151,12 @@ bool contains(const std::string& input, const std::string& search) {
 
 /******************************************************************************/
 
+bool startsWith(const std::string& input, const std::string& search) {
+    return input.find(search) == 0;
+}
+
+/******************************************************************************/
+
 bool endsWith(const std::string& input, const std::string& search) {
     auto pos = input.rfind(search);
 
