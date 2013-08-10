@@ -4,6 +4,7 @@
 #define _OBLIVION_CORE_DYNAMIC_LIB_H_
 
 #include <memory>
+#include <string>
 
 #include <oblivion/core/base.h>
 #include <oblivion/core/non_copyable.h>
@@ -22,7 +23,7 @@ namespace oblivion {
          * @param path The path to the library to open.
          * @throw Exception if the library cannot be opened.
          */
-        explicit DynamicLib(const char* path);
+        explicit DynamicLib(const std::string& path);
 
         /**
          * Closes the dynamic library.
@@ -35,7 +36,13 @@ namespace oblivion {
          * @return A pointer to the function.
          * @throw Exception if the function cannot be found.
          */
-        void* getFunction(const char* name);
+        void* getFunction(const std::string& name);
+
+        /**
+         * Gets the path that this library was loaded from.
+         * @return The path.
+         */
+        const std::string& path() const;
 
     private:
 

@@ -2,8 +2,6 @@
 
 #include <oblivion/core/dynamic_lib.h>
 
-#include <string>
-
 #include <oblivion/core/exception.h>
 #include <oblivion/core/windows.h>
 
@@ -17,7 +15,7 @@ struct DynamicLib::Impl {
     /**
      * @see DynamicLib::DynamicLib.
      */
-    explicit Impl(const char* path);
+    explicit Impl(const std::string& path);
 
     /** 
      * @see DynamicLib::~DynamicLib.
@@ -27,14 +25,17 @@ struct DynamicLib::Impl {
     /**
      * @see DynamicLib::getFunction.
      */
-    void* getFunction(const char* name);
+    void* getFunction(const std::string& name);
+
+    std::string path_;
 
     HMODULE handle_;
+
 };
 
 /*****************************************************************************/
 
-DynamicLib::DynamicLib(const char* path) 
+DynamicLib::DynamicLib(const std::string& path) 
     : impl_(new Impl(path)) {
 }
 
@@ -45,17 +46,25 @@ DynamicLib::~DynamicLib() {
 
 /*****************************************************************************/
 
-void* DynamicLib::getFunction(const char* name) {
+void* DynamicLib::getFunction(const std::string& name) {
     return impl_->getFunction(name);
 }
 
 /*****************************************************************************/
 
-DynamicLib::Impl::Impl(const char* path) {
-    handle_ = LoadLibrary(path);
+const std::string& DynamicLib::path() const {
+    return impl_->path_;
+}
+
+/*****************************************************************************/
+
+DynamicLib::Impl::Impl(const std::string& path)
+    : path_(path) {
+
+    handle_ = LoadLibrary(path.c_str());
 
     if (!handle_) {
-        OB_THROW(std::string("Unable to load library: ") + path);
+        OB_THROW("Unable to load library: " + path);
     }
 }
 
@@ -67,11 +76,11 @@ DynamicLib::Impl::~Impl() {
 
 /*****************************************************************************/
 
-void* DynamicLib::Impl::getFunction(const char* name) {
-    void* result = GetProcAddress(handle_, name);
+void* DynamicLib::Impl::getFunction(const std::string& name) {
+    void* result = GetProcAddress(handle_, name.c_str());
 
     if (!result) {
-        OB_THROW(std::string("Unable to find function with name: ") + name);
+        OB_THROW("Unable to find function with name: " + name);
     }
 
     return result;

@@ -4,8 +4,6 @@
 
 #include <dlfcn.h>
 
-#include <string>
-
 #include <oblivion/core/exception.h>
 
 namespace oblivion {
@@ -18,7 +16,7 @@ struct DynamicLib::Impl {
     /**
      * @see DynamicLib::DynamicLib.
      */
-    explicit Impl(const char* path);
+    explicit Impl(const std::string& path);
 
     /** 
      * @see DynamicLib::~DynamicLib.
@@ -28,14 +26,17 @@ struct DynamicLib::Impl {
     /**
      * @see DynamicLib::getFunction.
      */
-    void* getFunction(const char* name);
+    void* getFunction(const std::string& name);
+
+    std::string path_;
 
     void* handle_;
+
 };
 
 /*****************************************************************************/
 
-DynamicLib::DynamicLib(const char* path) 
+DynamicLib::DynamicLib(const std::string& path) 
     : impl_(new Impl(path)) {
 }
 
@@ -46,17 +47,23 @@ DynamicLib::~DynamicLib() {
 
 /*****************************************************************************/
 
-void* DynamicLib::getFunction(const char* name) {
+void* DynamicLib::getFunction(const std::string& name) {
     return impl_->getFunction(name);
 }
 
 /*****************************************************************************/
 
-DynamicLib::Impl::Impl(const char* path) {
-    handle_ = dlopen(path, RTLD_NOW | RTLD_LOCAL);
+const std::string& DynamicLib::path() const {
+    return impl_->path_;
+}
+
+/*****************************************************************************/
+
+DynamicLib::Impl::Impl(const std::string& path) {
+    handle_ = dlopen(path.c_str(), RTLD_NOW | RTLD_LOCAL);
 
     if (!handle_) {
-        OB_THROW(std::string("Unable to load library: ") + path);
+        OB_THROW("Unable to load library: " + path);
     }
 }
 
@@ -68,11 +75,11 @@ DynamicLib::Impl::~Impl() {
 
 /*****************************************************************************/
 
-void* DynamicLib::Impl::getFunction(const char* name) {
-    void* result = dlsym(handle_, name);
+void* DynamicLib::Impl::getFunction(const std::string& name) {
+    void* result = dlsym(handle_, name.c_str());
 
     if (!result) {
-        OB_THROW(std::string("Unable to find function with name: ") + name);
+        OB_THROW("Unable to find function with name: " + name);
     }
 
     return result;
