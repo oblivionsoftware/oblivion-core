@@ -60,11 +60,16 @@ TEST(PropertiesTest, Iterable) {
     p1.set("age", "28");
 
     int32 count = 0;
-    for (auto& entry : p1) {
+    std::string names;
+
+    for (auto& entry: p1) {
         ++count;
+        names += entry.first;
     }
 
     EXPECT_EQ(2, count);
+    EXPECT_TRUE(contains(names, "name"));
+    EXPECT_TRUE(contains(names, "age"));
 }
 
 
