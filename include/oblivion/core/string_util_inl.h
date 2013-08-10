@@ -28,6 +28,13 @@ std::string toString(const std::pair<K,V>& value) {
 /*****************************************************************************/
 
 template <typename T>
+std::string toString(const std::vector<T>& value) {
+    return toCsv(value);
+}
+
+/*****************************************************************************/
+
+template <typename T>
 T fromString(const std::string& stringValue) {
     T result;
     std::istringstream ss(stringValue);

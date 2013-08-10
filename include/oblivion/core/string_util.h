@@ -98,6 +98,12 @@ namespace oblivion {
     std::string toString(const std::pair<K,V>& value);
 
     /**
+     * Specialization of vector to string.
+     */
+    template <typename T>
+    std::string toString(const std::vector<T>& value);
+
+    /**
      * Gets a value from a strong.
      * @param stringValue The string value.   
      * @return The value read from the string.
@@ -135,6 +141,15 @@ namespace oblivion {
      */
     template <typename Container>
     std::string toCsv(const Container& container);
+
+    /**
+     * Splits the specified text into tokens.
+     * @param text The input text.
+     * @param delimiter The delimiter
+     * @param trimTokens Whether to trim the tokens or not.
+     * @return The list of tokens.
+     */
+    OB_CORE_API std::vector<std::string> split(const std::string& text, char delimiter, bool trimTokens = false);
 
 }
 

@@ -190,4 +190,22 @@ std::string fromString(const std::string& stringValue) {
 
 /*****************************************************************************/
 
+std::vector<std::string> split(const std::string& text, char delimiter, bool trimTokens) {
+    std::vector<std::string> result;
+
+    std::stringstream ss(text);
+    std::string item;
+    while (std::getline(ss, item, delimiter)) {
+        if (trimTokens) {
+            trim(item);
+        }
+
+        result.push_back(item);
+    }
+
+    return result;
+}
+
+/*****************************************************************************/
+
 }
