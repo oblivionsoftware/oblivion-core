@@ -10,8 +10,8 @@ namespace oblivion {
 
 /*****************************************************************************/
 
-File::File(const char* path, const char* mode) {
-    file_ = fopen(path, mode);
+File::File(const std::string& path, const char* mode) {
+    file_ = fopen(path.c_str(), mode);
 
     if (!file_) {
         OB_THROW(std::string("Unable to open file: ") + path);
@@ -20,17 +20,33 @@ File::File(const char* path, const char* mode) {
 
 /*****************************************************************************/
 
-File::~File() {
-    close();
+File::File(File&& other)
+    : file_(other.file_) {
+
+    other.file_ = nullptr;
 }
 
 /*****************************************************************************/
 
-void File::close() {
-    if (file_) {
-        fclose(file_);
-        file_ = nullptr;
-    }
+File::~File() {
+    fclose(file_);
+}
+
+/*****************************************************************************/
+
+File& File::operator =(File&& other) {
+    fclose(file_);
+
+    file_ = other.file_;
+    other.file_ = nullptr;
+
+    return *this;
+}
+
+/*****************************************************************************/
+
+void File::flush() {
+    fflush(file_);
 }
 
 /*****************************************************************************/
@@ -71,6 +87,27 @@ void File::write(size_t size, void* data) {
     if (fwrite(data, size, 1, file_) != 1) {
         OB_THROW("fwrite failed");
     }
+}
+
+/*****************************************************************************/
+
+void File::printf(const char* format, ...) {
+    va_list args;
+    va_start(args, format);
+    vfprintf(file_, format, args);
+    va_end(args);
+}
+
+/*****************************************************************************/
+
+void File::write(const std::string& text) {
+    printf("%s", text.c_str());
+}
+
+/*****************************************************************************/
+
+void File::writeLine(const std::string& line) {
+    printf("%s\n", line.c_str());
 }
 
 /*****************************************************************************/

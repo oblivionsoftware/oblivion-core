@@ -23,16 +23,18 @@ TEST(FileTest, ReadWrite) {
     writeData.b = 2;
     writeData.c = 3;
 
-    File outFile("test.txt", "wb");
-    outFile.write(sizeof(TestData), &writeData);
-    outFile.close();
+    {
+        File outFile("test.txt", "wb");
+        outFile.write(sizeof(TestData), &writeData);
+    }
 
     TestData readData;
 
-    File inFile("test.txt", "rb");
-    EXPECT_EQ(sizeof(TestData), inFile.size());
-    inFile.read(sizeof(TestData), &readData);
-    inFile.close();
+    {
+        File inFile("test.txt", "rb");
+        EXPECT_EQ(sizeof(TestData), inFile.size());
+        inFile.read(sizeof(TestData), &readData);
+    }
 
     EXPECT_EQ(readData.a, writeData.a);
     EXPECT_EQ(readData.b, writeData.b);
@@ -46,8 +48,9 @@ TEST(FileTest, ReadWrite) {
 TEST(FileTest, Exists) {
     EXPECT_FALSE(File::exists("notreal.txt"));
 
-    File file("test_exists.txt", "w");
-    file.close();
+    {
+        File file("test_exists.txt", "w");
+    }
 
     EXPECT_TRUE(File::exists("test_exists.txt"));
 
@@ -59,8 +62,9 @@ TEST(FileTest, Exists) {
 TEST(FileTest, Remove) {
     EXPECT_THROW(File::remove("notreal.txt"), Exception);
 
-    File testFile("test_delete.txt", "w");
-    testFile.close();
+    {
+        File testFile("test_delete.txt", "w");
+    }
 
     EXPECT_TRUE(File::exists("test_delete.txt"));
 

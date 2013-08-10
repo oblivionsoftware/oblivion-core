@@ -4,6 +4,7 @@
 #define _OBLIVION_CORE_FILE_H_
 
 #include <cstdio>
+#include <string>
 
 #include <oblivion/core/base.h>
 #include <oblivion/core/non_copyable.h>
@@ -23,7 +24,13 @@ namespace oblivion {
          * @param mode The mode string (@see fopen).
          * @throw Exception if the file cannot be opened.
          */
-        File(const char* path, const char* mode);
+        File(const std::string& path, const char* mode);
+
+        /**
+         * Moves constructs a file.
+         * @param other The file to move.
+         */
+        File(File&& other);
 
         /**
          * Closes the file if opened.
@@ -31,9 +38,16 @@ namespace oblivion {
         ~File();
 
         /**
-         * Closes the file.
+         * Move assignment.
+         * @param other The file to move.
+         * @return A reference to this file.
          */
-        void close();
+        File& operator =(File&& other);
+
+        /** 
+         * Flushes the file stream to the filesystem.
+         */
+        void flush();
 
         /**
          * Seeks to a position in the file. (@see fseek).
@@ -66,6 +80,24 @@ namespace oblivion {
          * @throw Exception if the write operation fails.
          */
         void write(size_t size, void* data);
+
+        /**
+         * Writes formatted output to a file.
+         * @param format The printf style format string.
+         */
+        void printf(const char* format, ...);
+
+        /**
+         * Writes some text to the file.
+         * @param text The text to write.
+         */
+        void write(const std::string& text);
+
+        /**
+         * Writes a line of text to the file.
+         * @param line The line to write.
+         */
+        void writeLine(const std::string& line);
 
         /**
          * Gets the size of the specified file.
