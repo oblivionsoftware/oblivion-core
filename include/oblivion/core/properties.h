@@ -59,10 +59,9 @@ namespace oblivion {
         /**
          * Gets the value of a property.
          * @param name The name of the property to get.
-         * @param defaultValue The value to return if the property doesn't exist.
-         * @return The value of the property if one exists, or defaultValue otherwise.
+         * @return The value of the property if one exists, or the empty string otherwise.
          */
-        const std::string& getProperty(const std::string& name, const std::string& defaultValue = "");
+        const std::string& getProperty(const std::string& name) const;
 
         /**
          * Gets the value of a property, converting from a string representation.
@@ -71,21 +70,21 @@ namespace oblivion {
          * @return The value of the property if one exists, or defaultValue otherwise.
          */
         template <typename T>
-        T get(const std::string& name, const T& defaultValue = T());
+        T get(const std::string& name, const T& defaultValue = T()) const;
 
         /**
          * Gets whether or not this properties collection contains a value for the specified property name.
          * @param name The name of the property to look for.
          * @return True if there is a property entry, false otherwise.
          */
-        bool contains(const std::string& name);
+        bool contains(const std::string& name) const;
 
         /**
          * Saves the set of properties to a file.
          * @param path The path to the file to write.
          * @throw Exception if the properties file cannot be saved.
          */
-        void save(const std::string& path);
+        void save(const std::string& path) const;
 
         /**
          * Loads the set of properties from a file.

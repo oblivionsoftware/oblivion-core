@@ -30,23 +30,26 @@ void Properties::setProperty(const std::string& name, const std::string& value) 
 
 /*****************************************************************************/
 
-const std::string& Properties::getProperty(const std::string& name, const std::string& defaultValue) {
-    if (contains(name)) {
-        return properties_[name];
+const std::string& Properties::getProperty(const std::string& name) const {
+    static std::string EMPTY_STRING;
+
+    auto itr = properties_.find(name);
+    if (itr != properties_.end()) {
+        return itr->second;
     }
 
-    return defaultValue;
+    return EMPTY_STRING;
 }
 
 /*****************************************************************************/
 
-bool Properties::contains(const std::string& name) {
+bool Properties::contains(const std::string& name) const {
     return properties_.find(name) != properties_.end();
 }
 
 /*****************************************************************************/
 
-void Properties::save(const std::string& path) {
+void Properties::save(const std::string& path) const {
     File file(path, "wb");
     
     for (auto& entry : properties_) {

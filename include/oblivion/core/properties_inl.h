@@ -17,7 +17,7 @@ void Properties::set(const std::string& name, const T& value) {
 /*****************************************************************************/
 
 template <typename T>
-T Properties::get(const std::string& name, const T& defaultValue) {
+T Properties::get(const std::string& name, const T& defaultValue) const {
     if (contains(name)) {
         return fromString<T>(getProperty(name));
     }
