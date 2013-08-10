@@ -2,6 +2,7 @@
 
 #include <oblivion/core/file.h>
 
+#include <cstdarg>
 #include <string>
 
 #include <oblivion/core/exception.h>
