@@ -74,6 +74,12 @@ namespace oblivion {
         size_t read(size_t size, void* out);
 
         /**
+         * Reads a line of text from the file.
+         * @return The line of text.
+         */
+        std::string readLine();
+
+        /**
          * Writes data to a file.
          * @param size The size of the data to write.
          * @param data The data to write. 

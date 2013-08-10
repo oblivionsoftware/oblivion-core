@@ -1,3 +1,4 @@
+
 /* Copyright (c) 2013 Oblivion Software */
 
 #include <oblivion/core/file.h>

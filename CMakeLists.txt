@@ -14,6 +14,7 @@ INCLUDE_DIRECTORIES(test)
 SET(CORE_SOURCES
     "src/oblivion/core/exception.cpp"
     "src/oblivion/core/file.cpp"
+    "src/oblivion/core/properties.cpp"
     "src/oblivion/core/random.cpp"
     "src/oblivion/core/string_util.cpp")
 
@@ -36,6 +37,8 @@ SET(CORE_HEADERS
     "include/oblivion/core/dynamic_lib.h"
     "include/oblivion/core/exception.h"
     "include/oblivion/core/file.h"
+    "include/oblivion/core/properties.h"
+    "include/oblivion/core/properties_inl.h"
     "include/oblivion/core/random.h"
     "include/oblivion/core/singleton.h"
     "include/oblivion/core/string_util.h"
@@ -57,6 +60,7 @@ SET(TEST_SOURCES
     "test/oblivion/core/algorithm_test.cpp"
     "test/oblivion/core/exception_test.cpp"
     "test/oblivion/core/file_test.cpp"
+    "test/oblivion/core/properties_test.cpp"
     "test/oblivion/core/singleton_test.cpp"
     "test/oblivion/core/string_util_test.cpp"
     "test/oblivion/core/types_test.cpp")

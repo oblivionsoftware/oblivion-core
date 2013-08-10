@@ -15,6 +15,11 @@
  */
 #define OB_THROW(message) throw oblivion::Exception((message), __FILE__, __FUNCTION__, __LINE__)
 
+/**
+ * Throws a "Not Implemented" exception.
+ */
+#define OB_NOT_IMPLEMENTED OB_THROW("Not Implemented");
+
 namespace oblivion {
 
     /**

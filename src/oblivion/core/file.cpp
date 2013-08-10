@@ -11,6 +11,10 @@ namespace oblivion {
 
 /*****************************************************************************/
 
+const int32 MAX_LINE_SIZE = 2048;
+
+/*****************************************************************************/
+
 File::File(const std::string& path, const char* mode) {
     file_ = fopen(path.c_str(), mode);
 
@@ -80,6 +84,21 @@ size_t File::read(size_t size, void* out) {
     }
 
     return result;
+}
+
+/*****************************************************************************/
+
+std::string File::readLine() {
+    char buffer[MAX_LINE_SIZE];
+    if (!fgets(buffer, sizeof(buffer), file_)) {
+        if (feof(file_)) {
+            return "";
+        }
+
+        OB_THROW("fgets failed");
+    }
+
+    return buffer;
 }
 
 /*****************************************************************************/
