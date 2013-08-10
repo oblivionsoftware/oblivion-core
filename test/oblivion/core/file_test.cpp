@@ -37,6 +37,8 @@ TEST(FileTest, ReadWrite) {
     EXPECT_EQ(readData.a, writeData.a);
     EXPECT_EQ(readData.b, writeData.b);
     EXPECT_EQ(readData.c, writeData.c);
+
+    File::remove("test.txt");
 }
 
 /*****************************************************************************/
@@ -48,6 +50,8 @@ TEST(FileTest, Exists) {
     file.close();
 
     EXPECT_TRUE(File::exists("test_exists.txt"));
+
+    File::remove("test_exists.txt");
 }
 
 /*****************************************************************************/

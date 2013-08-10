@@ -37,6 +37,7 @@ SET(CORE_HEADERS
     "include/oblivion/core/exception.h"
     "include/oblivion/core/file.h"
     "include/oblivion/core/random.h"
+    "include/oblivion/core/singleton.h"
     "include/oblivion/core/string_util.h"
     "include/oblivion/core/string_util_inl.h"
     "include/oblivion/core/types.h"
@@ -56,6 +57,7 @@ SET(TEST_SOURCES
     "test/oblivion/core/algorithm_test.cpp"
     "test/oblivion/core/exception_test.cpp"
     "test/oblivion/core/file_test.cpp"
+    "test/oblivion/core/singleton_test.cpp"
     "test/oblivion/core/string_util_test.cpp"
     "test/oblivion/core/types_test.cpp")
 
