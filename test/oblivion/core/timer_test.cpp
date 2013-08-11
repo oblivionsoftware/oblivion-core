@@ -15,8 +15,8 @@ TEST(TimerTest, ElapsedTime) {
 
     std::this_thread::sleep_for(std::chrono::seconds(1));
 
-    EXPECT_LT(1.0f, timer.elapsedTime());
-    EXPECT_GT(1.5f, timer.elapsedTime());
+    EXPECT_LE(1.0f, timer.elapsedTime());
+    EXPECT_GT(1.1f, timer.elapsedTime());
 }
 
 /*****************************************************************************/
