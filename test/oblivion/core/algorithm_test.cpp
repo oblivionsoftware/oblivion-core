@@ -103,6 +103,25 @@ TEST(AlgorithmTest, Erase) {
 
 /******************************************************************************/
 
+TEST(AlgorithmTest, EraseIf) {
+    std::vector<int32> v;
+    v.push_back(1);
+    v.push_back(2);
+    v.push_back(3);
+    v.push_back(4);
+
+    erase_if(v, [](int v) {
+        return v <= 2;
+    });
+
+    EXPECT_EQ(2, v.size());
+    EXPECT_EQ(3, v[0]);
+    EXPECT_EQ(4, v[1]);
+}
+
+
+/******************************************************************************/
+
 TEST(AlgorithmTest, Contains) {
     std::vector<int32> v;
     v.push_back(1);

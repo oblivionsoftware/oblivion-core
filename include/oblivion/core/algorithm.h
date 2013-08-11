@@ -75,6 +75,14 @@ namespace oblivion {
     void erase(std::vector<T>& v, const T& value);
 
     /**
+     * Erases values from the vector that match the specified predicate.
+     * @param v The vector with the elements to remove.
+     * @param predicate The predicate.
+     */
+    template <typename T, typename Predicate>
+    void erase_if(std::vector<T>& v, Predicate predicate);
+
+    /**
      * Gets whether or not a vector contains the specified value.
      * @param v The vector to check.
      * @param value The value to check for.

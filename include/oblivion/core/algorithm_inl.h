@@ -63,6 +63,13 @@ void erase(std::vector<T>& v, const T& value) {
 
 /*****************************************************************************/
 
+template <typename T, typename Predicate>
+void erase_if(std::vector<T>& v, Predicate predicate) {
+    v.erase(std::remove_if(v.begin(), v.end(), predicate), v.end());
+}
+
+/*****************************************************************************/
+
 template <typename T>
 bool contains(const std::vector<T>& v, const T& value) {
     return std::find(v.begin(), v.end(), value) != v.end();
