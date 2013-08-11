@@ -3,7 +3,7 @@
 #include <gtest/gtest.h>
 
 #include <oblivion/core/exception.h>
-#include <oblivion/core/file.h>
+#include <oblivion/core/file_util.h>
 #include <oblivion/core/properties.h>
 
 namespace oblivion {
@@ -31,7 +31,7 @@ TEST(PropertiesTest, SaveLoadConstructor) {
     EXPECT_EQ("Jeff", p2.get<std::string>("name"));
     EXPECT_EQ(28, p2.get<int32>("age"));
 
-    File::remove("test.properties");
+    FileUtil::remove("test.properties");
 }
 
 /*****************************************************************************/
@@ -49,7 +49,7 @@ TEST(PropertiesTest, SaveLoad) {
 
     EXPECT_THROW(p2.load("notreal.properties"), Exception);
 
-    File::remove("test.properties");
+    FileUtil::remove("test.properties");
 }
 
 /*****************************************************************************/

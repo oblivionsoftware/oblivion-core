@@ -4,6 +4,7 @@
 
 #include <oblivion/core/exception.h>
 #include <oblivion/core/file.h>
+#include <oblivion/core/file_util.h>
 
 namespace oblivion {
 
@@ -40,37 +41,7 @@ TEST(FileTest, ReadWrite) {
     EXPECT_EQ(readData.b, writeData.b);
     EXPECT_EQ(readData.c, writeData.c);
 
-    File::remove("test.txt");
-}
-
-/*****************************************************************************/
-
-TEST(FileTest, Exists) {
-    EXPECT_FALSE(File::exists("notreal.txt"));
-
-    {
-        File file("test_exists.txt", "w");
-    }
-
-    EXPECT_TRUE(File::exists("test_exists.txt"));
-
-    File::remove("test_exists.txt");
-}
-
-/*****************************************************************************/
-
-TEST(FileTest, Remove) {
-    EXPECT_THROW(File::remove("notreal.txt"), Exception);
-
-    {
-        File testFile("test_delete.txt", "w");
-    }
-
-    EXPECT_TRUE(File::exists("test_delete.txt"));
-
-    File::remove("test_delete.txt");
-
-    EXPECT_FALSE(File::exists("test_delete.txt"));
+    FileUtil::remove("test.txt");
 }
 
 /*****************************************************************************/

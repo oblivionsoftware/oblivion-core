@@ -118,19 +118,6 @@ namespace oblivion {
          */
         bool eof();
 
-        /**
-         * Gets whether or not the specified file exists.
-         * @param path The path to the file to check.
-         */
-        static bool exists(const char* path);
-
-        /**
-         * Removes the file at the specified location.
-         * @param path The path to the file to delete.
-         * @throw Exception If the file is not able to be deleted.
-         */
-        static void remove(const char* path);
-
     private:
 
         FILE* file_;
