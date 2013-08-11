@@ -1,7 +1,7 @@
 /* Copyright (c) 2013 Oblivion Software */
 
 #ifndef _OBLIVION_CORE_TIMESTAMP_H_
-#define _OBLIVION_CORE_TIMESTMAP_H_
+#define _OBLIVION_CORE_TIMESTAMP_H_
 
 #include <ctime>
 #include <iosfwd>
