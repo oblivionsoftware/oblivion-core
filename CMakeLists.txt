@@ -17,7 +17,8 @@ SET(CORE_SOURCES
     "src/oblivion/core/file_util.cpp"
     "src/oblivion/core/properties.cpp"
     "src/oblivion/core/random.cpp"
-    "src/oblivion/core/string_util.cpp")
+    "src/oblivion/core/string_util.cpp"
+    "src/oblivion/core/timer.cpp")
 
 IF(WIN32)
     SET(CORE_SOURCES ${CORE_SOURCES}
@@ -45,6 +46,7 @@ SET(CORE_HEADERS
     "include/oblivion/core/singleton.h"
     "include/oblivion/core/string_util.h"
     "include/oblivion/core/string_util_inl.h"
+    "include/oblivion/core/timer.h"
     "include/oblivion/core/types.h"
     "include/oblivion/core/windows.h")
 
@@ -66,6 +68,7 @@ SET(TEST_SOURCES
     "test/oblivion/core/properties_test.cpp"
     "test/oblivion/core/singleton_test.cpp"
     "test/oblivion/core/string_util_test.cpp"
+    "test/oblivion/core/timer_test.cpp"
     "test/oblivion/core/types_test.cpp")
 
 ADD_EXECUTABLE(oblivion-core-test ${TEST_SOURCES})
