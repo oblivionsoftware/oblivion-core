@@ -29,6 +29,14 @@ Variant::Variant(real32 value)
 
 /*****************************************************************************/
 
+Variant::Variant(const char* value)
+    : type_(VariantType::String),
+      string_(value) {
+}
+
+
+/*****************************************************************************/
+
 Variant::Variant(const std::string& value)
     : type_(VariantType::String),
       string_(value) {

@@ -54,6 +54,12 @@ namespace oblivion {
          * Constructs a string variant with the specified value.
          * @param value The string value.
          */
+        Variant(const char* value);
+
+        /**
+         * Constructs a string variant with the specified value.
+         * @param value The string value.
+         */
         Variant(const std::string& value);
 
         /**
