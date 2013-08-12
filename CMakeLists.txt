@@ -19,7 +19,8 @@ SET(CORE_SOURCES
     "src/oblivion/core/random.cpp"
     "src/oblivion/core/string_util.cpp"
     "src/oblivion/core/timer.cpp"
-    "src/oblivion/core/timestamp.cpp")
+    "src/oblivion/core/timestamp.cpp"
+    "src/oblivion/core/variant.cpp")
 
 IF(WIN32)
     SET(CORE_SOURCES ${CORE_SOURCES}
@@ -50,6 +51,7 @@ SET(CORE_HEADERS
     "include/oblivion/core/timer.h"
     "include/oblivion/core/timestamp.h"
     "include/oblivion/core/types.h"
+    "include/oblivion/core/variant.h"
     "include/oblivion/core/windows.h")
 
 ADD_LIBRARY(oblivion-core SHARED ${CORE_SOURCES} ${CORE_HEADERS})
@@ -72,7 +74,8 @@ SET(TEST_SOURCES
     "test/oblivion/core/string_util_test.cpp"
     "test/oblivion/core/timer_test.cpp"
     "test/oblivion/core/timestamp_test.cpp"
-    "test/oblivion/core/types_test.cpp")
+    "test/oblivion/core/types_test.cpp"
+    "test/oblivion/core/variant_test.cpp")
 
 ADD_EXECUTABLE(oblivion-core-test ${TEST_SOURCES})
 SET_TARGET_PROPERTIES(oblivion-core-test PROPERTIES
