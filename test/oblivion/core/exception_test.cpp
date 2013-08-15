@@ -45,4 +45,14 @@ TEST(ExceptionTest, BaseMessage) {
 
 /*****************************************************************************/
 
+TEST(ExceptionTest, FormatMessage) {
+    try {
+        OB_THROW("Sample Message: %d", 32);
+    } catch (std::exception& ex) {
+        EXPECT_TRUE(contains(ex.what(), "Sample Message: 32"));
+    }
+}
+
+/*****************************************************************************/
+
 }

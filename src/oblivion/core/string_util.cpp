@@ -4,6 +4,7 @@
 
 #include <algorithm>
 #include <cctype>
+#include <cstdio>
 
 namespace oblivion {
 
@@ -165,6 +166,27 @@ bool endsWith(const std::string& input, const std::string& search) {
     }
 
     return pos == (input.size() - search.size());
+}
+
+/******************************************************************************/
+
+std::string formatString(const char* format, ...) {
+    va_list args;
+    va_start(args, format);
+
+    auto result = formatString(format, args);
+    va_end(args);
+
+    return result;
+}
+
+/******************************************************************************/
+
+std::string formatString(const char* format, va_list args) {
+    char buffer[2048];
+    vsprintf(buffer, format, args);
+
+    return buffer;
 }
 
 /******************************************************************************/

@@ -19,7 +19,7 @@ File::File(const std::string& path, const char* mode) {
     file_ = fopen(path.c_str(), mode);
 
     if (!file_) {
-        OB_THROW(std::string("Unable to open file: ") + path);
+        OB_THROW("Unable to open file: %s", path.c_str());
     }
 }
 

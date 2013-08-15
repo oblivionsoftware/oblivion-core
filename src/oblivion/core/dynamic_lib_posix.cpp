@@ -63,7 +63,7 @@ DynamicLib::Impl::Impl(const std::string& path) {
     handle_ = dlopen(path.c_str(), RTLD_NOW | RTLD_LOCAL);
 
     if (!handle_) {
-        OB_THROW("Unable to load library: " + path);
+        OB_THROW("Unable to load library: %s", path.c_str());
     }
 }
 
@@ -79,7 +79,7 @@ void* DynamicLib::Impl::getFunction(const std::string& name) {
     void* result = dlsym(handle_, name.c_str());
 
     if (!result) {
-        OB_THROW("Unable to find function with name: " + name);
+        OB_THROW("Unable to find function with name: %s", name.c_str());
     }
 
     return result;

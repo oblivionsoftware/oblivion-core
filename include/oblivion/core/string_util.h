@@ -3,6 +3,7 @@
 #ifndef _OBLIVION_CORE_STRING_UTIL_H_
 #define _OBLIVION_CORE_STRING_UTIL_H_
 
+#include <cstdarg>
 #include <sstream>
 #include <string>
 #include <vector>
@@ -75,6 +76,20 @@ namespace oblivion {
      * @return True if the input string ends with the search string, false otherwise.
      */
     OB_CORE_API bool endsWith(const std::string& input, const std::string& search);
+
+    /**
+     * Formats a string using a printf style format string.
+     * @param format The printf style format string.
+     * @return The formatted string.
+     */
+    OB_CORE_API std::string formatString(const char* format, ...);
+
+    /**
+     * Formats a string using a printf style format string using a variable argument list.
+     * @param format The printf style format string.
+     * @param args The variable argument list.
+     */
+    OB_CORE_API std::string formatString(const char* format, va_list args);
 
     /**
      * Converts from a value to a string.

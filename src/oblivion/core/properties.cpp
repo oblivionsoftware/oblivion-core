@@ -72,7 +72,7 @@ void Properties::load(const std::string& path) {
 
         auto equalsPos = line.find_first_of("=");
         if (equalsPos == std::string::npos) {
-            OB_THROW("Invalid property line: " + line);
+            OB_THROW("Invalid property line: %s", line.c_str());
         }
 
         auto name = line.substr(0, equalsPos);

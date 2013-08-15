@@ -13,7 +13,7 @@
  * Macro for throwing an exception that injects the correct file, function, and line number.
  * @param message The message to throw.
  */
-#define OB_THROW(message) throw oblivion::Exception((message), __FILE__, __FUNCTION__, __LINE__)
+#define OB_THROW(...) throw oblivion::Exception(__FILE__, __FUNCTION__, __LINE__, __VA_ARGS__)
 
 /**
  * Throws a "Not Implemented" exception.
@@ -31,12 +31,21 @@ namespace oblivion {
 
         /**
          * Constructs an exception with the specified error message.
-         * @param message The error message.
          * @param file The name of the file.
          * @param function The name of the function throwing the error.
          * @param line The line number.
+         * @param message The error message.
          */
-        explicit Exception(const std::string& message, const char* file, const char* function, int32 line);
+        Exception(const char* file, const char* function, int32 line, const std::string& message);
+
+        /**
+         * Constructs an exception with the specified error message.
+         * @param file The name of the file.
+         * @param function The name of the function throwing the error.
+         * @param line The line number.
+         * @param format The printf style format string.
+         */
+        Exception(const char* file, const char* function, int32 line, const char* format, ...);
 
         /**
          * Gets the line number where the exception was thrown.
@@ -79,6 +88,7 @@ namespace oblivion {
         int32 line_;        
 
         std::string fullMessage_;
+
     };
 
 }

@@ -11,7 +11,7 @@ namespace oblivion {
 
 void FileUtil::remove(const std::string& path) {
     if (std::remove(path.c_str()) != 0) {
-        OB_THROW("Unable to remove file: " + path);
+        OB_THROW("Unable to remove file: %s", path.c_str());
     }
 }
 

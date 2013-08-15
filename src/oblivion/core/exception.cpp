@@ -2,13 +2,16 @@
 
 #include <oblivion/core/exception.h>
 
+#include <cstdarg>
 #include <sstream>
+
+#include <oblivion/core/string_util.h>
 
 namespace oblivion {
 
 /*****************************************************************************/
 
-Exception::Exception(const std::string& message, const char* file, const char* function, int32 line) 
+Exception::Exception(const char* file, const char* function, int32 line, const std::string& message) 
     : message_(message),
       file_(file),
       function_(function),
@@ -18,6 +21,24 @@ Exception::Exception(const std::string& message, const char* file, const char* f
     ss << message_ << " - " << function_ << " - " << file_ << "(" << line_ << ")";
 
     fullMessage_ = ss.str();
+}
+
+/*****************************************************************************/
+
+Exception::Exception(const char* file, const char* function, int32 line, const char* format, ...) 
+    : file_(file),
+      function_(function),
+      line_(line) {
+
+    va_list args;
+    va_start(args, format);
+    message_ = formatString(format, args);
+    va_end(args);
+
+    std::stringstream ss;
+    ss << message_ << " - " << function_ << " - " << file_ << "(" << line_ << ")";
+
+    fullMessage_ = ss.str(); 
 }
 
 /*****************************************************************************/
