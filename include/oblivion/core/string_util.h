@@ -159,21 +159,21 @@ namespace oblivion {
      * that returns "true" or "false"
      */
     template <>
-    std::string StringUtil::toString(const bool& value);
+    OB_CORE_API std::string StringUtil::toString(const bool& value);
 
     /**
      * Specialization of string -> bool that
      * converts "true" to true and everything else to false.
      */
     template <>
-    bool StringUtil::parse(const std::string& stringValue);
+	OB_CORE_API bool StringUtil::parse(const std::string& stringValue);
 
     /**
      * Specialization of string -> string that simply returns
      * the string.
      */
     template <>
-    std::string StringUtil::parse(const std::string& stringValue);
+	OB_CORE_API std::string StringUtil::parse(const std::string& stringValue);
 
 }
 
