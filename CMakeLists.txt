@@ -62,33 +62,35 @@ IF (UNIX)
     TARGET_LINK_LIBRARIES(oblivion-core dl)
 ENDIF()
 
-SET(TEST_SOURCES
-    "test/gtest/gtest-all.cc"
-    "test/main.cpp"
-    "test/oblivion/core/algorithm_test.cpp"
-    "test/oblivion/core/exception_test.cpp"
-    "test/oblivion/core/file_test.cpp"
-    "test/oblivion/core/file_util_test.cpp"
-    "test/oblivion/core/properties_test.cpp"
-    "test/oblivion/core/singleton_test.cpp"
-    "test/oblivion/core/string_util_test.cpp"
-    "test/oblivion/core/timer_test.cpp"
-    "test/oblivion/core/timestamp_test.cpp"
-    "test/oblivion/core/types_test.cpp"
-    "test/oblivion/core/variant_test.cpp")
+IF (NOT OBLIVION_CORE_SKIP_TESTS) 
+    SET(TEST_SOURCES
+        "test/gtest/gtest-all.cc"
+        "test/main.cpp"
+        "test/oblivion/core/algorithm_test.cpp"
+        "test/oblivion/core/exception_test.cpp"
+        "test/oblivion/core/file_test.cpp"
+        "test/oblivion/core/file_util_test.cpp"
+        "test/oblivion/core/properties_test.cpp"
+        "test/oblivion/core/singleton_test.cpp"
+        "test/oblivion/core/string_util_test.cpp"
+        "test/oblivion/core/timer_test.cpp"
+        "test/oblivion/core/timestamp_test.cpp"
+        "test/oblivion/core/types_test.cpp"
+        "test/oblivion/core/variant_test.cpp")
 
-ADD_EXECUTABLE(oblivion-core-test ${TEST_SOURCES})
-SET_TARGET_PROPERTIES(oblivion-core-test PROPERTIES
-    COMPILE_FLAGS "-DGTEST_HAS_TR1_TUPLE=0")
+    ADD_EXECUTABLE(oblivion-core-test ${TEST_SOURCES})
+    SET_TARGET_PROPERTIES(oblivion-core-test PROPERTIES
+        COMPILE_FLAGS "-DGTEST_HAS_TR1_TUPLE=0")
 
-IF(UNIX)
-    TARGET_LINK_LIBRARIES(oblivion-core-test pthread)
+    IF(UNIX)
+        TARGET_LINK_LIBRARIES(oblivion-core-test pthread)
+    ENDIF()
+
+    TARGET_LINK_LIBRARIES(oblivion-core-test oblivion-core)
+
+    ENABLE_TESTING()
+    ADD_TEST(unit_tests oblivion-core-test)
 ENDIF()
-
-TARGET_LINK_LIBRARIES(oblivion-core-test oblivion-core)
-
-ENABLE_TESTING()
-ADD_TEST(unit_tests oblivion-core-test)
 
 # cppcheck
 ADD_CUSTOM_TARGET(cppcheck
