@@ -64,9 +64,9 @@ void Properties::load(const std::string& path) {
 
     while (!file.eof()) {
         auto line = file.readLine();
-        trim(line);
+        StringUtil::trim(line);
 
-        if (startsWith(line, "#") || line.empty()) {
+        if (StringUtil::startsWith(line, "#") || line.empty()) {
             continue;
         }
 
@@ -76,10 +76,10 @@ void Properties::load(const std::string& path) {
         }
 
         auto name = line.substr(0, equalsPos);
-        trim(name);
+        StringUtil::trim(name);
 
         auto value = line.substr(equalsPos + 1);
-        trim(value);
+        StringUtil::trim(value);
 
         set(name, value);
     }

@@ -102,7 +102,7 @@ TEST(FileUtilTest, ListFiles) {
 
     bool found = false;
     for (auto& file : files) {
-        if (endsWith(file, "sample.txt")) {
+        if (StringUtil::endsWith(file, "sample.txt")) {
             found = true;
         }
     }

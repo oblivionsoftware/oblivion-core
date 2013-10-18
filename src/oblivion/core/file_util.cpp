@@ -42,7 +42,7 @@ std::string FileUtil::getBaseName(const std::string& path) {
 
 std::string FileUtil::getFileName(const std::string& path) {
     auto cleanPath = path;
-    while (endsWith(cleanPath, "\\") || endsWith(cleanPath, "/")) {
+    while (StringUtil::endsWith(cleanPath, "\\") || StringUtil::endsWith(cleanPath, "/")) {
         cleanPath = cleanPath.substr(0, cleanPath.size() - 1);
     }
 

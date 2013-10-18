@@ -10,7 +10,7 @@ namespace oblivion {
 
 /*****************************************************************************/
 
-std::string escapeQuotes(const std::string& text) {
+std::string StringUtil::escapeQuotes(const std::string& text) {
     std::ostringstream ss;
 
     for (auto c : text) {
@@ -28,7 +28,7 @@ std::string escapeQuotes(const std::string& text) {
 
 /******************************************************************************/
 
-void trim(std::string& text) {
+void StringUtil::trim(std::string& text) {
     if (text.empty()) {
         return;
     }
@@ -79,7 +79,7 @@ static char percentDecode(char a, char b) {
 
 /******************************************************************************/
 
-std::string urlDecode(const std::string& input) {
+std::string StringUtil::urlDecode(const std::string& input) {
     std::string result;
 
     for (auto i = 0u; i < input.length(); ++i) {
@@ -108,21 +108,21 @@ std::string urlDecode(const std::string& input) {
 
 /******************************************************************************/
 
-std::string toUpper(std::string input) {
+std::string StringUtil::toUpper(std::string input) {
     std::transform(input.begin(), input.end(), input.begin(), ::toupper);
     return input;
 }
 
 /******************************************************************************/
 
-std::string toLower(std::string input) {
+std::string StringUtil::toLower(std::string input) {
     std::transform(input.begin(), input.end(), input.begin(), ::tolower);
     return input;
 }
 
 /******************************************************************************/
 
-std::string camelCaseToUnderscores(const std::string& input) {
+std::string StringUtil::camelCaseToUnderscores(const std::string& input) {
     std::stringstream ss;
 
     for (auto i = 0u; i < input.length(); ++i) {
@@ -146,19 +146,19 @@ std::string camelCaseToUnderscores(const std::string& input) {
 
 /******************************************************************************/
 
-bool contains(const std::string& input, const std::string& search) {
+bool StringUtil::contains(const std::string& input, const std::string& search) {
     return input.find(search) != std::string::npos;
 }
 
 /******************************************************************************/
 
-bool startsWith(const std::string& input, const std::string& search) {
+bool StringUtil::startsWith(const std::string& input, const std::string& search) {
     return input.find(search) == 0;
 }
 
 /******************************************************************************/
 
-bool endsWith(const std::string& input, const std::string& search) {
+bool StringUtil::endsWith(const std::string& input, const std::string& search) {
     auto pos = input.rfind(search);
 
     if (pos == std::string::npos) {
@@ -170,7 +170,7 @@ bool endsWith(const std::string& input, const std::string& search) {
 
 /******************************************************************************/
 
-std::string formatString(const char* format, ...) {
+std::string StringUtil::formatString(const char* format, ...) {
     va_list args;
     va_start(args, format);
 
@@ -182,37 +182,16 @@ std::string formatString(const char* format, ...) {
 
 /******************************************************************************/
 
-std::string formatString(const char* format, va_list args) {
+std::string StringUtil::formatString(const char* format, va_list args) {
     char buffer[2048];
     vsprintf(buffer, format, args);
 
     return buffer;
 }
 
-/******************************************************************************/
-
-template <>
-std::string toString(const bool& value) {
-    return value ? "true" : "false";
-}
-
-/******************************************************************************/
-
-template <>
-bool fromString(const std::string& stringValue) {
-    return toLower(stringValue) == "true";
-}
-
-/******************************************************************************/
-
-template <>
-std::string fromString(const std::string& stringValue) {
-    return stringValue;
-}
-
 /*****************************************************************************/
 
-std::vector<std::string> split(const std::string& text, char delimiter, bool trimTokens) {
+std::vector<std::string> StringUtil::split(const std::string& text, char delimiter, bool trimTokens) {
     std::vector<std::string> result;
 
     std::stringstream ss(text);
@@ -226,6 +205,27 @@ std::vector<std::string> split(const std::string& text, char delimiter, bool tri
     }
 
     return result;
+}
+
+/******************************************************************************/
+
+template <>
+std::string StringUtil::toString(const bool& value) {
+    return value ? "true" : "false";
+}
+
+/******************************************************************************/
+
+template <>
+bool StringUtil::parse(const std::string& stringValue) {
+    return StringUtil::toLower(stringValue) == "true";
+}
+
+/******************************************************************************/
+
+template <>
+std::string StringUtil::parse(const std::string& stringValue) {
+    return stringValue;
 }
 
 /*****************************************************************************/

@@ -32,7 +32,7 @@ Exception::Exception(const char* file, const char* function, int32 line, const c
 
     va_list args;
     va_start(args, format);
-    message_ = formatString(format, args);
+    message_ = StringUtil::formatString(format, args);
     va_end(args);
 
     std::stringstream ss;

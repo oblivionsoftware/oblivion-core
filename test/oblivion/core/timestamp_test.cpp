@@ -24,7 +24,7 @@ TEST(TimestampTest, Format) {
 
     auto isoString = timestamp.iso8601();
     EXPECT_EQ(20, isoString.size());
-    EXPECT_TRUE(endsWith(isoString, "Z"));
+    EXPECT_TRUE(StringUtil::endsWith(isoString, "Z"));
 }
 
 /*****************************************************************************/

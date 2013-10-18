@@ -8,7 +8,7 @@ namespace oblivion {
 /*****************************************************************************/
 
 template <typename T>
-std::string toString(const T& value) {
+std::string StringUtil::toString(const T& value) {
     std::ostringstream ss;
     ss << value;
 
@@ -18,7 +18,7 @@ std::string toString(const T& value) {
 /*****************************************************************************/
 
 template <typename K, typename V>
-std::string toString(const std::pair<K,V>& value) {
+std::string StringUtil::toString(const std::pair<K,V>& value) {
     std::stringstream ss;
     ss << "(" << toString(value.first) << "," << toString(value.second) << ")";
 
@@ -28,14 +28,14 @@ std::string toString(const std::pair<K,V>& value) {
 /*****************************************************************************/
 
 template <typename T>
-std::string toString(const std::vector<T>& value) {
+std::string StringUtil::toString(const std::vector<T>& value) {
     return toCsv(value);
 }
 
 /*****************************************************************************/
 
 template <typename T>
-T fromString(const std::string& stringValue) {
+T StringUtil::parse(const std::string& stringValue) {
     T result;
     std::istringstream ss(stringValue);
     ss >> result;
@@ -46,7 +46,7 @@ T fromString(const std::string& stringValue) {
 /*****************************************************************************/
 
 template <typename Iterator>
-std::string toCsv(Iterator begin, Iterator end) {
+std::string StringUtil::toCsv(Iterator begin, Iterator end) {
     std::stringstream ss;
 
     int i = 0;
@@ -65,7 +65,7 @@ std::string toCsv(Iterator begin, Iterator end) {
 /*****************************************************************************/
 
 template <typename Container>
-std::string toCsv(const Container& container) {
+std::string StringUtil::toCsv(const Container& container) {
     return toCsv(std::begin(container), std::end(container));
 }
 

@@ -13,10 +13,10 @@ namespace oblivion {
 TEST(TimerTest, ElapsedTime) {
     Timer timer;
 
-    std::this_thread::sleep_for(std::chrono::seconds(1));
+    std::this_thread::sleep_for(std::chrono::milliseconds(200));
 
-    EXPECT_LE(1.0f, timer.elapsedTime());
-    EXPECT_GT(1.1f, timer.elapsedTime());
+    EXPECT_LE(0.1f, timer.elapsedTime());
+    EXPECT_GT(0.3f, timer.elapsedTime());
 }
 
 /*****************************************************************************/

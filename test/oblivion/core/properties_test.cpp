@@ -68,8 +68,8 @@ TEST(PropertiesTest, Iterable) {
     }
 
     EXPECT_EQ(2, count);
-    EXPECT_TRUE(contains(names, "name"));
-    EXPECT_TRUE(contains(names, "age"));
+    EXPECT_TRUE(StringUtil::contains(names, "name"));
+    EXPECT_TRUE(StringUtil::contains(names, "age"));
 }
 
 

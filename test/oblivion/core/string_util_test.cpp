@@ -13,13 +13,13 @@ TEST(StringUtilTest, Trim) {
     std::string b = "b  \n  ";
     std::string c = "   c \t ";
 
-    trim(a);
+    StringUtil::trim(a);
     EXPECT_EQ("a", a);
 
-    trim(b);
+    StringUtil::trim(b);
     EXPECT_EQ("b", b);
 
-    trim(c);
+    StringUtil::trim(c);
     EXPECT_EQ("c", c);
 }    
 
@@ -28,106 +28,106 @@ TEST(StringUtilTest, Trim) {
 TEST(StringUtilTest, ToCsv) {
     std::vector<std::string> values;
 
-    EXPECT_EQ("", toCsv(values));
+    EXPECT_EQ("", StringUtil::toCsv(values));
 
     values.push_back("a");
-    EXPECT_EQ("a", toCsv(values));
+    EXPECT_EQ("a", StringUtil::toCsv(values));
 
     values.push_back("b");
-    EXPECT_EQ("a, b", toCsv(values));
+    EXPECT_EQ("a, b", StringUtil::toCsv(values));
 
     values.push_back("c");
-    EXPECT_EQ("a, b, c", toCsv(values));
+    EXPECT_EQ("a, b, c", StringUtil::toCsv(values));
 }    
 
 /******************************************************************************/
 
 TEST(StringUtilTest, ToUpper) {
-    EXPECT_EQ("TWEET", toUpper("Tweet"));
-    EXPECT_EQ("", toUpper(""));
-    EXPECT_EQ("TWEET", toUpper("TWEET"));
-    EXPECT_EQ("ALL_UPPER_123", toUpper("all_upper_123"));
+    EXPECT_EQ("TWEET", StringUtil::toUpper("Tweet"));
+    EXPECT_EQ("", StringUtil::toUpper(""));
+    EXPECT_EQ("TWEET", StringUtil::toUpper("TWEET"));
+    EXPECT_EQ("ALL_UPPER_123", StringUtil::toUpper("all_upper_123"));
 }   
 
 /******************************************************************************/
 
 TEST(StringUtilTest, ToLower) {
-    EXPECT_EQ("tweet", toLower("Tweet"));
-    EXPECT_EQ("", toLower(""));
-    EXPECT_EQ("tweet", toLower("TWEET"));
-    EXPECT_EQ("all_lower_123", toLower("ALL_LOWER_123"));
+    EXPECT_EQ("tweet", StringUtil::toLower("Tweet"));
+    EXPECT_EQ("", StringUtil::toLower(""));
+    EXPECT_EQ("tweet", StringUtil::toLower("TWEET"));
+    EXPECT_EQ("all_lower_123", StringUtil::toLower("ALL_LOWER_123"));
 }    
 
 /******************************************************************************/
 
 TEST(StringUtilTest, CamelCaseToUnderscores) {
-    EXPECT_EQ("", camelCaseToUnderscores(""));
-    EXPECT_EQ("abc_123", camelCaseToUnderscores("abc_123"));
-    EXPECT_EQ("first_name", camelCaseToUnderscores("firstName"));
-    EXPECT_EQ("uuid", camelCaseToUnderscores("UUID"));
-    EXPECT_EQ("jpg_thumb", camelCaseToUnderscores("JPGThumb"));
-    EXPECT_EQ("jpg_thumb", camelCaseToUnderscores("JPG_Thumb"));
+    EXPECT_EQ("", StringUtil::camelCaseToUnderscores(""));
+    EXPECT_EQ("abc_123", StringUtil::camelCaseToUnderscores("abc_123"));
+    EXPECT_EQ("first_name", StringUtil::camelCaseToUnderscores("firstName"));
+    EXPECT_EQ("uuid", StringUtil::camelCaseToUnderscores("UUID"));
+    EXPECT_EQ("jpg_thumb", StringUtil::camelCaseToUnderscores("JPGThumb"));
+    EXPECT_EQ("jpg_thumb", StringUtil::camelCaseToUnderscores("JPG_Thumb"));
 }  
 
 /******************************************************************************/
 
 TEST(StringUtilTest, ToString) {
-    EXPECT_EQ("", toString(""));
-    EXPECT_EQ("true", toString(true));
-    EXPECT_EQ("false", toString(false));
-    EXPECT_EQ("342", toString(342));
-    EXPECT_EQ("-342", toString(-342));
-    EXPECT_EQ("asdf", toString("asdf"));
-    EXPECT_EQ("asdf asdf", toString("asdf asdf"));
+    EXPECT_EQ("", StringUtil::toString(""));
+    EXPECT_EQ("true", StringUtil::toString(true));
+    EXPECT_EQ("false", StringUtil::toString(false));
+    EXPECT_EQ("342", StringUtil::toString(342));
+    EXPECT_EQ("-342", StringUtil::toString(-342));
+    EXPECT_EQ("asdf", StringUtil::toString("asdf"));
+    EXPECT_EQ("asdf asdf", StringUtil::toString("asdf asdf"));
 }    
 
 /******************************************************************************/
 
 TEST(StringUtilTest, FromString) {
-    EXPECT_EQ("", fromString<std::string>(""));
-    EXPECT_TRUE(fromString<bool>("true"));
-    EXPECT_FALSE(fromString<bool>("false"));
-    EXPECT_EQ(342, fromString<int>("342"));
-    EXPECT_EQ(-342, fromString<int>("-342"));
-    EXPECT_EQ("asdf", fromString<std::string>("asdf"));
-    EXPECT_EQ("asdf asdf", fromString<std::string>("asdf asdf"));
+    EXPECT_EQ("", StringUtil::parse<std::string>(""));
+    EXPECT_TRUE(StringUtil::parse<bool>("true"));
+    EXPECT_FALSE(StringUtil::parse<bool>("false"));
+    EXPECT_EQ(342, StringUtil::parse<int>("342"));
+    EXPECT_EQ(-342, StringUtil::parse<int>("-342"));
+    EXPECT_EQ("asdf", StringUtil::parse<std::string>("asdf"));
+    EXPECT_EQ("asdf asdf", StringUtil::parse<std::string>("asdf asdf"));
 }  
 
 /******************************************************************************/
 
 TEST(StringUtilTest, Contains) {
-    EXPECT_TRUE(contains("1234", "1"));
-    EXPECT_FALSE(contains("1234", "5"));
-    EXPECT_FALSE(contains("", "a"));
-    EXPECT_TRUE(contains("", ""));
+    EXPECT_TRUE(StringUtil::contains("1234", "1"));
+    EXPECT_FALSE(StringUtil::contains("1234", "5"));
+    EXPECT_FALSE(StringUtil::contains("", "a"));
+    EXPECT_TRUE(StringUtil::contains("", ""));
 } 
 
 /******************************************************************************/
 
 TEST(StringUtilTest, StartsWith) {
-    EXPECT_TRUE(startsWith("1234", "1"));
-    EXPECT_TRUE(startsWith("1234", "12"));
-    EXPECT_FALSE(startsWith("1234", "4"));
-    EXPECT_FALSE(startsWith("1234", "34"));
-    EXPECT_TRUE(startsWith("1234", ""));
-    EXPECT_TRUE(startsWith("", ""));
+    EXPECT_TRUE(StringUtil::startsWith("1234", "1"));
+    EXPECT_TRUE(StringUtil::startsWith("1234", "12"));
+    EXPECT_FALSE(StringUtil::startsWith("1234", "4"));
+    EXPECT_FALSE(StringUtil::startsWith("1234", "34"));
+    EXPECT_TRUE(StringUtil::startsWith("1234", ""));
+    EXPECT_TRUE(StringUtil::startsWith("", ""));
 }  
 
 /******************************************************************************/
 
 TEST(StringUtilTest, EndsWith) {
-    EXPECT_TRUE(endsWith("1234", "4"));
-    EXPECT_TRUE(endsWith("1234", "34"));
-    EXPECT_FALSE(endsWith("1234", "2"));
-    EXPECT_FALSE(endsWith("1234", "1"));
-    EXPECT_TRUE(endsWith("1234", ""));
-    EXPECT_TRUE(endsWith("", ""));
+    EXPECT_TRUE(StringUtil::endsWith("1234", "4"));
+    EXPECT_TRUE(StringUtil::endsWith("1234", "34"));
+    EXPECT_FALSE(StringUtil::endsWith("1234", "2"));
+    EXPECT_FALSE(StringUtil::endsWith("1234", "1"));
+    EXPECT_TRUE(StringUtil::endsWith("1234", ""));
+    EXPECT_TRUE(StringUtil::endsWith("", ""));
 }    
 
 /******************************************************************************/
 
 TEST(StringUtilTest, Format) {
-    EXPECT_EQ("3 blind mice", formatString("%d blind mice", 3));
+    EXPECT_EQ("3 blind mice", StringUtil::formatString("%d blind mice", 3));
 }    
 
 

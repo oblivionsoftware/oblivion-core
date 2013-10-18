@@ -11,7 +11,7 @@ namespace oblivion {
 
 template <typename T>
 void Properties::set(const std::string& name, const T& value) {
-    setProperty(name, toString(value));
+    setProperty(name, StringUtil::toString(value));
 }
 
 /*****************************************************************************/
@@ -19,7 +19,7 @@ void Properties::set(const std::string& name, const T& value) {
 template <typename T>
 T Properties::get(const std::string& name, const T& defaultValue) const {
     if (contains(name)) {
-        return fromString<T>(getProperty(name));
+        return StringUtil::parse<T>(getProperty(name));
     }
 
     return defaultValue;
