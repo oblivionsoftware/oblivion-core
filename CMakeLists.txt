@@ -96,7 +96,7 @@ ENDIF()
 
 # cppcheck
 ADD_CUSTOM_TARGET(cppcheck
-    cppcheck --xml -I ${CMAKE_CURRENT_SOURCE_DIR}/include ${CMAKE_CURRENT_SOURCE_DIR}/src 2> cppcheck-result.xml
+    cppcheck --xml -I ${CMAKE_CURRENT_SOURCE_DIR}/include ${CMAKE_CURRENT_SOURCE_DIR}/src/oblivion 2> cppcheck-result.xml
     WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
     COMMENT "Performing static analysis with cppcheck" VERBATIM)
 
