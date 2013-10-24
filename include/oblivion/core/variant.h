@@ -67,6 +67,12 @@ namespace oblivion {
         Variant(const std::string& value);
 
         /**
+         * Copy constructor.
+         * @param variant The variant to copy.
+         */
+        Variant(const Variant& variant);
+
+        /**
          * Cleanup.
          */
         ~Variant();
@@ -94,6 +100,43 @@ namespace oblivion {
          * @return The string value.
          */
         std::string stringValue() const;
+
+        /**
+         * Gets the size if this is an array or map.
+         * @return The size.
+         */
+        int32 size() const;
+
+        /**
+         * Gets the variant at the specified index. This method only
+         * works on VariantType::Vector.
+         * @param index The index to access.
+         * @return A reference to the variant.
+         */
+        Variant& operator[](int32 index);
+
+        /**
+         * Gets the variant at the specified index. This method only
+         * works on VariantType::Vector.
+         * @param index The index to access.
+         * @return A const reference to the variant.
+         */
+        const Variant& operator[](int32 index) const;
+
+        /**
+         * Gets a reference to the variant at the specified key. This
+         * method only works on VariantType::Map.
+         * @param key The to retrieve.
+         * @return A reference to the variant.
+         */
+        Variant& operator[](const std::string& key);
+
+        /**
+         * Copy assignment.
+         * @param variant The variant to copy.
+         * @return A reference to this.
+         */
+        Variant& operator =(const Variant& variant);
 
     private:
 

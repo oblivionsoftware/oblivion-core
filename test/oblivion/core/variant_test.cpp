@@ -77,6 +77,13 @@ TEST(VariantTest, Map) {
     EXPECT_THROW(var.intValue(), Exception);
     EXPECT_THROW(var.realValue(), Exception);
     EXPECT_THROW(var.stringValue(), Exception);
+
+    var["num1"] = 10;
+    var["num2"] = 20;
+
+    EXPECT_EQ(10, var["num1"].intValue());
+    EXPECT_EQ(20, var["num2"].intValue());
+    EXPECT_EQ(VariantType::Null, var["invalid"].type());
 }
 
 /*****************************************************************************/

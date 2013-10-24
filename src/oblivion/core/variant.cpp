@@ -19,11 +19,35 @@ public:
 
     virtual VariantType type() const = 0;
 
-    virtual int32 intValue() const = 0;
+    virtual std::unique_ptr<VariantValue> clone() const = 0;
 
-    virtual real32 realValue() const = 0;
+    virtual int32 intValue() const {
+        OB_THROW("Unsupported Operation");
+    }
 
-    virtual std::string stringValue() const = 0;
+    virtual real32 realValue() const {
+        OB_THROW("Unsupported operation");
+    }
+
+    virtual std::string stringValue() const {
+        OB_THROW("Unsupported operation");
+    }
+
+    virtual int32 size() const {
+        OB_THROW("Unsupported operation");
+    }
+
+    virtual Variant& getAtIndex(int32 index) {
+        OB_THROW("Unsupported operation");
+    }
+
+    virtual const Variant& getAtIndex(int32 index) const {
+        OB_THROW("Unsupported operation");
+    }
+
+    virtual Variant& getAtKey(const std::string& key) {
+        OB_THROW("Unsupported operation");
+    }
 
 };
 
@@ -34,20 +58,12 @@ class NullValue : public VariantValue {
 
 public:
 
-    VariantType type() const {
+    VariantType type() const override {
         return VariantType::Null;
     }
 
-    int32 intValue() const {
-        OB_THROW("Variant is null");
-    }
-
-    real32 realValue() const {
-        OB_THROW("Variant is null");
-    }
-
-    std::string stringValue() const {
-        OB_THROW("Variant is null");
+    std::unique_ptr<VariantValue> clone() const {
+        return std::unique_ptr<VariantValue>(new NullValue());
     }
 
 };
@@ -63,20 +79,24 @@ public:
         : value_(value) {
     }
 
-    VariantType type() const {
+    VariantType type() const override {
         return VariantType::Number;
     }
 
-    int32 intValue() const {
+    int32 intValue() const override {
         return static_cast<int32>(value_);
     }
 
-    real32 realValue() const {
+    real32 realValue() const override {
         return value_;
     }
 
-    std::string stringValue() const {
+    std::string stringValue() const override {
         return StringUtil::toString(value_);
+    }
+
+    std::unique_ptr<VariantValue> clone() const {
+        return std::unique_ptr<VariantValue>(new NumberValue(value_));
     }
 
 private:
@@ -99,22 +119,25 @@ public:
         : value_(std::move(value)) {
     }
 
-    VariantType type() const {
+    VariantType type() const override {
         return VariantType::String;
     }
 
-    int32 intValue() const {
+    int32 intValue() const override {
         return StringUtil::parse<int32>(value_);
     }
 
-    real32 realValue() const {
+    real32 realValue() const override {
         return StringUtil::parse<real32>(value_);
     }
 
-    std::string stringValue() const {
+    std::string stringValue() const override {
         return value_;
     }
 
+    std::unique_ptr<VariantValue> clone() const {
+        return std::unique_ptr<VariantValue>(new StringValue(value_));
+    }
 
 private:
 
@@ -129,20 +152,31 @@ class VectorValue : public VariantValue {
 
 public:
 
+    VectorValue() {
+    }
+
+    VectorValue(std::vector<Variant> value)
+        : value_(std::move(value)) {
+    }
+
     VariantType type() const {
         return VariantType::Vector;
     }
 
-    int32 intValue() const {
-        OB_THROW("Cannot convert vector to int");
+    int32 size() const override {
+        return static_cast<int32>(value_.size());
     }
 
-    real32 realValue() const {
-        OB_THROW("Cannot convert vector to real");
+    Variant& getAtIndex(int32 index) override {
+        return value_[index];
     }
 
-    std::string stringValue() const {
-        OB_NOT_IMPLEMENTED;
+    const Variant& getAtIndex(int32 index) const override {
+        return value_[index];
+    }
+
+    std::unique_ptr<VariantValue> clone() const {
+        return std::unique_ptr<VariantValue>(new VectorValue(value_));
     }
 
 private:
@@ -158,20 +192,27 @@ class MapValue : public VariantValue {
 
 public:
 
-    VariantType type() const {
+    MapValue() {
+    }
+
+    MapValue(std::map<std::string, Variant> value)
+        : value_(std::move(value)) {
+    }
+
+    VariantType type() const override {
         return VariantType::Map;
     }
 
-    int32 intValue() const {
-        OB_THROW("Cannot convert map to int");
+    int32 size() const override {
+        return static_cast<int32>(value_.size());
     }
 
-    real32 realValue() const {
-        OB_THROW("Cannot convert map to real");
+    Variant& getAtKey(const std::string& key) override {
+        return value_[key];
     }
 
-    std::string stringValue() const {
-        OB_NOT_IMPLEMENTED;
+    std::unique_ptr<VariantValue> clone() const {
+        return std::unique_ptr<VariantValue>(new MapValue(value_));
     }
 
 private:
@@ -227,6 +268,12 @@ Variant::Variant(const std::string& value) {
 
 /*****************************************************************************/
 
+Variant::Variant(const Variant& variant) 
+    : value_(variant.value_->clone()) {
+}
+
+/*****************************************************************************/
+
 Variant::~Variant() {
 }
 
@@ -252,6 +299,37 @@ real32 Variant::realValue() const {
 
 std::string Variant::stringValue() const {
     return value_->stringValue();
+}
+
+/*****************************************************************************/
+
+int32 Variant::size() const {
+    return value_->size();
+}
+
+/*****************************************************************************/
+
+Variant& Variant::operator[](int32 index) {
+    return value_->getAtIndex(index);
+}
+
+/*****************************************************************************/
+
+const Variant& Variant::operator[](int32 index) const {
+    return value_->getAtIndex(index);
+}
+
+/*****************************************************************************/
+
+Variant& Variant::operator[](const std::string& key) {
+    return value_->getAtKey(key);
+}
+
+/*****************************************************************************/
+
+Variant& Variant::operator =(const Variant& variant) {
+    value_ = variant.value_->clone();
+    return *this;
 }
 
 /*****************************************************************************/
