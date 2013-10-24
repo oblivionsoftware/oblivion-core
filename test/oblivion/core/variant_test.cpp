@@ -228,4 +228,23 @@ TEST(VariantTest, ParseJson) {
 
 /*****************************************************************************/
 
+TEST(VariantTest, ToString) {
+    Variant var(VariantType::Array);
+    var.add(1);
+    var.add(2);
+
+    EXPECT_EQ("[1,2]", StringUtil::toString(var));
+}
+
+/*****************************************************************************/
+
+TEST(VariantTest, Parse) {
+    Variant var = StringUtil::parse<Variant>("[1,2]");
+    EXPECT_EQ(VariantType::Array, var.type());
+    EXPECT_EQ(1, var[0].intValue());
+    EXPECT_EQ(2, var[1].intValue());
+}
+
+/*****************************************************************************/
+
 }

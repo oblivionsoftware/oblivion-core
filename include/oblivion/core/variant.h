@@ -9,6 +9,7 @@
 #include <vector>
 
 #include <oblivion/core/base.h>
+#include <oblivion/core/string_util.h>
 #include <oblivion/core/types.h>
 
 namespace oblivion {
@@ -216,6 +217,18 @@ namespace oblivion {
         std::unique_ptr<VariantValue> value_;
 
     };
+
+    /**
+     * Variant -> JSON String.
+     */
+    template <>
+    OB_CORE_API std::string StringUtil::toString(const Variant& variant);
+
+    /**
+     * JSON String -> Variant.
+     */
+    template <>
+    OB_CORE_API Variant StringUtil::parse(const std::string& jsonString);
 
 }
 

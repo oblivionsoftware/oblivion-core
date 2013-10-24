@@ -630,4 +630,18 @@ Variant Variant::parseJson(const std::string& jsonString) {
 
 /*****************************************************************************/
 
+template <>
+std::string StringUtil::toString(const Variant& variant) {
+    return variant.toJson();
+}
+
+/*****************************************************************************/
+
+template <>
+Variant StringUtil::parse(const std::string& jsonString) {
+    return Variant::parseJson(jsonString);
+}
+
+/*****************************************************************************/
+
 }
