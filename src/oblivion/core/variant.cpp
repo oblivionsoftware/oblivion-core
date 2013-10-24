@@ -245,7 +245,7 @@ Variant::Variant(VariantType type) {
 /*****************************************************************************/
 
 Variant::Variant(int32 value) {
-    value_.reset(new NumberValue(value));
+    value_.reset(new NumberValue(static_cast<real32>(value)));
 }
 
 /*****************************************************************************/
