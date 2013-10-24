@@ -9,9 +9,11 @@ ELSEIF(UNIX)
 ENDIF()
 
 INCLUDE_DIRECTORIES(include)
+INCLUDE_DIRECTORIES(src)
 INCLUDE_DIRECTORIES(test)
 
 SET(CORE_SOURCES
+    "src/json/jsoncpp.cpp"
     "src/oblivion/core/exception.cpp"
     "src/oblivion/core/file.cpp"
     "src/oblivion/core/file_util.cpp"

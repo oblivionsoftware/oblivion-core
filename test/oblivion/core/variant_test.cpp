@@ -23,7 +23,7 @@ TEST(VariantTest, Default) {
 TEST(VariantTest, Integer) {
     Variant var(10);
 
-    EXPECT_EQ(VariantType::Number, var.type());
+    EXPECT_EQ(VariantType::Integer, var.type());
     EXPECT_EQ(10, var.intValue());
     EXPECT_EQ(10, var.realValue());
     EXPECT_EQ("10", var.stringValue());
@@ -31,11 +31,28 @@ TEST(VariantTest, Integer) {
 
 /*****************************************************************************/
 
-TEST(VariantTest, Real) {
-    Variant var(10.25f);
+TEST(VariantTest, Bool) {
+    Variant var(true);
 
-    EXPECT_EQ(VariantType::Number, var.type());
-    EXPECT_EQ(10.25f, var.realValue());
+    EXPECT_EQ(VariantType::Bool, var.type());
+    EXPECT_EQ(1, var.intValue());
+    EXPECT_TRUE(var.boolValue());
+    EXPECT_EQ("true", var.stringValue());
+
+    var = false;
+    EXPECT_EQ(VariantType::Bool, var.type());
+    EXPECT_EQ(0, var.intValue());
+    EXPECT_FALSE(var.boolValue());
+    EXPECT_EQ("false", var.stringValue());    
+}
+
+/*****************************************************************************/
+
+TEST(VariantTest, Real) {
+    Variant var(10.25);
+
+    EXPECT_EQ(VariantType::Real, var.type());
+    EXPECT_EQ(10.25, var.realValue());
     EXPECT_EQ(10, var.intValue());
     EXPECT_EQ("10.25", var.stringValue());
 }
@@ -59,10 +76,10 @@ TEST(VariantTest, String) {
 
 /*****************************************************************************/
 
-TEST(VariantTest, Vector) {
-    Variant var(VariantType::Vector);
+TEST(VariantTest, Array) {
+    Variant var(VariantType::Array);
 
-    EXPECT_EQ(VariantType::Vector, var.type());
+    EXPECT_EQ(VariantType::Array, var.type());
     EXPECT_THROW(var.intValue(), Exception);
     EXPECT_THROW(var.realValue(), Exception);
     EXPECT_THROW(var.stringValue(), Exception);
@@ -109,15 +126,104 @@ TEST(VariantTest, Map) {
 /*****************************************************************************/
 
 TEST(VariantTest, Copy) {
-    Variant vec(VariantType::Vector);
-    vec.add(1);
-    vec.add(2);
+    Variant var(VariantType::Array);
+    var.add(1);
+    var.add(2);
 
-    Variant vecCopy = vec;
-    vecCopy.clear();
+    Variant varCopy = var;
+    varCopy.clear();
 
-    EXPECT_EQ(2, vec.size());
-    EXPECT_EQ(0, vecCopy.size());
+    EXPECT_EQ(2, var.size());
+    EXPECT_EQ(0, varCopy.size());
+}
+
+/*****************************************************************************/
+
+TEST(VariantTest, ToJson) {
+    Variant v;
+
+    EXPECT_EQ("null", v.toJson());
+
+    v = 3;
+    EXPECT_EQ("3", v.toJson());
+
+    v = 3.14;
+    EXPECT_EQ("3.140", v.toJson());
+
+    v = "Hello, World";
+    EXPECT_EQ("\"Hello, World\"", v.toJson());
+
+    v = true;
+    EXPECT_EQ("true", v.toJson());
+
+    v = false;
+    EXPECT_EQ("false", v.toJson());
+
+    v = Variant(VariantType::Array);
+    v.add(1);
+    v.add("test");
+    v.add(4);
+
+    EXPECT_EQ("[1,\"test\",4]", v.toJson());
+
+    Variant mapVar(VariantType::Map);
+
+    EXPECT_EQ("{}", mapVar.toJson());
+
+    mapVar["a"] = 2;
+    mapVar["b"] = "name";
+    mapVar["c"] = v;
+
+    EXPECT_EQ("{\"a\":2,\"b\":\"name\",\"c\":[1,\"test\",4]}", mapVar.toJson());
+}
+
+/*****************************************************************************/
+
+TEST(VariantTest, ParseJson) {
+    Variant v = Variant::parseJson("null");
+    EXPECT_EQ(VariantType::Null, v.type());
+
+    v = Variant::parseJson("3");
+    EXPECT_EQ(VariantType::Integer, v.type());
+    EXPECT_EQ(3, v.intValue());
+
+    v = Variant::parseJson("3.14");
+    EXPECT_EQ(VariantType::Real, v.type());
+    EXPECT_EQ(3.14, v.realValue());
+
+    v = Variant::parseJson("\"Hello, World\"");
+    EXPECT_EQ(VariantType::String, v.type());
+    EXPECT_EQ("Hello, World", v.stringValue());
+
+    v = Variant::parseJson("true");
+    EXPECT_EQ(VariantType::Bool, v.type());
+    EXPECT_TRUE(v.boolValue());
+
+    v = Variant::parseJson("false");
+    EXPECT_EQ(VariantType::Bool, v.type());
+    EXPECT_FALSE(v.boolValue());
+
+    v = Variant::parseJson("[1,\"test\",4]");
+    EXPECT_EQ(VariantType::Array, v.type());
+    EXPECT_EQ(3, v.size());
+    EXPECT_EQ(1, v[0].intValue());
+    EXPECT_EQ("test", v[1].stringValue());
+    EXPECT_EQ(4, v[2].intValue());
+
+    v = Variant::parseJson("{\"a\":2,\"b\":\"name\",\"c\":[1,\"test\",4]}");
+    EXPECT_EQ(VariantType::Map, v.type());
+    EXPECT_EQ(3, v.size());
+    EXPECT_EQ(2, v["a"].intValue());
+    EXPECT_EQ("name", v["b"].stringValue());
+
+    auto& c = v["c"];
+    EXPECT_EQ(VariantType::Array, c.type());
+    EXPECT_EQ(3, c.size());
+    EXPECT_EQ(1, c[0].intValue());
+    EXPECT_EQ("test", c[1].stringValue());
+    EXPECT_EQ(4, c[2].intValue());
+
+    EXPECT_THROW(Variant::parseJson("s;lkj45#$"), Exception);
 }
 
 /*****************************************************************************/

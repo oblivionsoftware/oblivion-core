@@ -18,9 +18,11 @@ namespace oblivion {
      */
     enum class VariantType {
         Null,
-        Number,
+        Integer,
+        Real,
+        Bool,
         String,
-        Vector,
+        Array,
         Map
     };
 
@@ -52,7 +54,13 @@ namespace oblivion {
          * Constructs a real variant with the specified value.
          * @param value The real value.
          */
-        Variant(real32 value);
+        Variant(real64 value);
+
+        /**
+         * Constructs a boolean variant with the specified value.
+         * @param value The bool value.
+         */
+        Variant(bool value);
 
         /**
          * Constructs a string variant with the specified value.
@@ -99,7 +107,13 @@ namespace oblivion {
          * Gets the real value of this variant.
          * @return The real value.
          */
-        real32 realValue() const;
+        real64 realValue() const;
+
+        /**
+         * Gets the boolean value of this variant.
+         * @return The boolean value.
+         */
+        bool boolValue() const;
 
         /**
          * Gets the string value of this variant.
@@ -138,6 +152,14 @@ namespace oblivion {
         Variant& operator[](const std::string& key);
 
         /**
+         * Gets a reference to the variant at the specified key. This
+         * method only works on VariantType::Map.
+         * @param key The to retrieve.
+         * @return A reference to the variant.
+         */
+        const Variant& operator[](const std::string& key) const;
+
+        /**
          * Copy assignment.
          * @param variant The variant to copy.
          * @return A reference to this.
@@ -169,6 +191,25 @@ namespace oblivion {
          * @return True if the variant contains the specified key, false otherwise.
          */
         bool containsKey(const std::string& key) const;
+
+        /**
+         * Gets the keys for the map. Only supported by VAriantType::Map.
+         * @return The set of map keys.
+         */
+        std::vector<std::string> mapKeys() const;
+
+        /**
+         * Gets the JSON value of this Variant.
+         * @return The JSON value.
+         */
+        std::string toJson() const;
+
+        /**
+         * Parses a JSON string.
+         * @param jsonString the input JSON string.
+         * @return The equivalent variant.
+         */
+        static Variant parseJson(const std::string& jsonString);
 
     private:
 
