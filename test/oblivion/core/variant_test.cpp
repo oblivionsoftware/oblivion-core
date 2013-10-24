@@ -21,34 +21,40 @@ TEST(VariantTest, Default) {
 /*****************************************************************************/
 
 TEST(VariantTest, Integer) {
-    Variant var = 10;;
+    Variant var(10);
 
-    EXPECT_EQ(VariantType::Integer, var.type());
+    EXPECT_EQ(VariantType::Number, var.type());
     EXPECT_EQ(10, var.intValue());
-    EXPECT_THROW(var.realValue(), Exception);
-    EXPECT_THROW(var.stringValue(), Exception);
+    EXPECT_EQ(10, var.realValue());
+    EXPECT_EQ("10", var.stringValue());
 }
 
 /*****************************************************************************/
 
 TEST(VariantTest, Real) {
-    Variant var = 10.0f;
+    Variant var(10.25f);
 
-    EXPECT_EQ(VariantType::Real, var.type());
-    EXPECT_EQ(10.0f, var.realValue());
-    EXPECT_THROW(var.intValue(), Exception);
-    EXPECT_THROW(var.stringValue(), Exception);
+    EXPECT_EQ(VariantType::Number, var.type());
+    EXPECT_EQ(10.25f, var.realValue());
+    EXPECT_EQ(10, var.intValue());
+    EXPECT_EQ("10.25", var.stringValue());
 }
 
 /*****************************************************************************/
 
 TEST(VariantTest, String) {
-    Variant var = "Hello, World!";
+    Variant var("Hello, World!");
 
     EXPECT_EQ(VariantType::String, var.type());
     EXPECT_EQ("Hello, World!", var.stringValue());
-    EXPECT_THROW(var.intValue(), Exception);
-    EXPECT_THROW(var.realValue(), Exception);
+    EXPECT_EQ(0, var.intValue());
+    EXPECT_EQ(0, var.realValue());
+
+    Variant var2("10.25");
+    EXPECT_EQ(VariantType::String, var2.type());
+    EXPECT_EQ("10.25", var2.stringValue());
+    EXPECT_EQ(10, var2.intValue());
+    EXPECT_EQ(10.25, var2.realValue());
 }
 
 /*****************************************************************************/

@@ -18,12 +18,16 @@ namespace oblivion {
      */
     enum class VariantType {
         Null,
-        Integer,
-        Real,
+        Number,
         String,
         Vector,
         Map
     };
+
+    /**
+     * Interface for variant values.
+     */
+    class VariantValue;
 
     /**
      * Variable that is able to hold one of several types.
@@ -63,52 +67,37 @@ namespace oblivion {
         Variant(const std::string& value);
 
         /**
+         * Cleanup.
+         */
+        ~Variant();
+
+        /**
          * Gets the type of this variant.
          * @return The type of this variant.
          */
         VariantType type() const;
 
         /**
-         * Gets the integer value of this variant, only works for VariantType::Integer.
+         * Gets the integer value of this variant.
          * @return The integer value.
-         * @throw Exception if type is not VariantType::Integer.
          */
         int32 intValue() const;
 
         /**
-         * Gets the real value of this variant, only works for VariantType::Real.
+         * Gets the real value of this variant.
          * @return The real value.
-         * @throw Exception if type is not VariantType::Real.
          */
         real32 realValue() const;
 
         /**
-         * Gets the string value of this variant, only works for VariantType::String.
+         * Gets the string value of this variant.
          * @return The string value.
-         * @throw Exception if type is not VariantType::String.
          */
-        const std::string& stringValue() const;
+        std::string stringValue() const;
 
     private:
 
-        /**
-         * Requires that the type matches the specified type.
-         * @param type The required type.
-         * @throw Exception if the type doesn't match.
-         */
-        void checkType(VariantType type) const;
-
-        VariantType type_;
-
-        int32 int_;
-
-        real32 real_;
-
-        std::string string_;
-
-        std::vector<Variant> vector_;
-
-        std::map<std::string, Variant> map_;
+        std::unique_ptr<VariantValue> value_;
 
     };
 
