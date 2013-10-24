@@ -49,6 +49,18 @@ public:
         OB_THROW("Unsupported operation");
     }
 
+    virtual void clear() {
+        OB_THROW("Unsupported operation");
+    }
+
+    virtual void add(const Variant& variant) {
+        OB_THROW("Unsupported operation");
+    }
+
+    virtual bool containsKey(const std::string& key) const {
+        OB_THROW("Unsupported operation");
+    }
+
 };
 
 /**
@@ -179,6 +191,14 @@ public:
         return std::unique_ptr<VariantValue>(new VectorValue(value_));
     }
 
+    void clear() override {
+        value_.clear();
+    }
+
+    void add(const Variant& variant) override {
+        value_.emplace_back(variant);
+    }
+
 private:
 
     std::vector<Variant> value_;
@@ -213,6 +233,14 @@ public:
 
     std::unique_ptr<VariantValue> clone() const {
         return std::unique_ptr<VariantValue>(new MapValue(value_));
+    }
+
+    void clear() override {
+        value_.clear();
+    }
+
+    bool containsKey(const std::string& key) const override {
+        return value_.find(key) != value_.end();
     }
 
 private:
@@ -274,6 +302,12 @@ Variant::Variant(const Variant& variant)
 
 /*****************************************************************************/
 
+Variant::Variant(Variant&& variant)
+    : value_(std::move(variant.value_)) {
+}
+
+/*****************************************************************************/
+
 Variant::~Variant() {
 }
 
@@ -330,6 +364,31 @@ Variant& Variant::operator[](const std::string& key) {
 Variant& Variant::operator =(const Variant& variant) {
     value_ = variant.value_->clone();
     return *this;
+}
+
+/*****************************************************************************/
+
+Variant& Variant::operator =(Variant&& variant) {
+    value_ = std::move(variant.value_);
+    return *this;
+}
+
+/*****************************************************************************/
+
+void Variant::clear() {
+    value_->clear();
+}
+
+/*****************************************************************************/
+
+void Variant::add(const Variant& variant) {
+    value_->add(variant);
+}
+
+/*****************************************************************************/
+
+bool Variant::containsKey(const std::string& key) const {
+    return value_->containsKey(key);
 }
 
 /*****************************************************************************/

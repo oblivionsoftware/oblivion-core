@@ -66,6 +66,18 @@ TEST(VariantTest, Vector) {
     EXPECT_THROW(var.intValue(), Exception);
     EXPECT_THROW(var.realValue(), Exception);
     EXPECT_THROW(var.stringValue(), Exception);
+
+    var.add(1);
+    var.add("2");
+    var.add(3.14f);
+
+    EXPECT_EQ(3, var.size());
+    EXPECT_EQ(1, var[0].intValue());
+    EXPECT_EQ(2, var[1].intValue());
+    EXPECT_EQ(3, var[2].intValue());
+
+    var.clear();
+    EXPECT_EQ(0, var.size());
 }
 
 /*****************************************************************************/
@@ -84,6 +96,28 @@ TEST(VariantTest, Map) {
     EXPECT_EQ(10, var["num1"].intValue());
     EXPECT_EQ(20, var["num2"].intValue());
     EXPECT_EQ(VariantType::Null, var["invalid"].type());
+
+    EXPECT_EQ(3, var.size());
+    EXPECT_TRUE(var.containsKey("num1"));
+    EXPECT_TRUE(var.containsKey("invalid"));
+    EXPECT_FALSE(var.containsKey("notreal"));
+
+    var.clear();
+    EXPECT_EQ(0, var.size());
+}
+
+/*****************************************************************************/
+
+TEST(VariantTest, Copy) {
+    Variant vec(VariantType::Vector);
+    vec.add(1);
+    vec.add(2);
+
+    Variant vecCopy = vec;
+    vecCopy.clear();
+
+    EXPECT_EQ(2, vec.size());
+    EXPECT_EQ(0, vecCopy.size());
 }
 
 /*****************************************************************************/

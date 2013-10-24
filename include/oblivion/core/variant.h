@@ -73,6 +73,12 @@ namespace oblivion {
         Variant(const Variant& variant);
 
         /**
+         * Move constructor.
+         * @param variant The variant to move.
+         */
+        Variant(Variant&& variant);
+
+        /**
          * Cleanup.
          */
         ~Variant();
@@ -137,6 +143,32 @@ namespace oblivion {
          * @return A reference to this.
          */
         Variant& operator =(const Variant& variant);
+
+        /**
+         * Move assignment.
+         * @param variant The variant to move.
+         * @return A reference to this.
+         */
+        Variant& operator =(Variant&& variant);
+
+        /**
+         * Removes all elements of a container.
+         */
+        void clear();
+
+        /**
+         * Adds an element to this Variant. Only supported by VariantType::Vector
+         * @param variant The variant to add.
+         */
+        void add(const Variant& variant);
+
+        /**
+         * Gets whether or not this variant contains the specified key. Only supported
+         * by VariantType::Map.
+         * @param key The key to check.
+         * @return True if the variant contains the specified key, false otherwise.
+         */
+        bool containsKey(const std::string& key) const;
 
     private:
 
