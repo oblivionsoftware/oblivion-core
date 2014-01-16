@@ -1,9 +1,11 @@
 oblivion-core
 =============
 
-Cross-Platform Utility Library
+#Cross-Platform Utility Library
 
-mkdir build
-cd build
-cmake ..
-cmake --build .
+
+# How to Build
+    mkdir build
+    cd build
+    cmake ..
+    cmake --build .
