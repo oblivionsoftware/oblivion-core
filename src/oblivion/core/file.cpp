@@ -121,13 +121,13 @@ void File::printf(const char* format, ...) {
 /*****************************************************************************/
 
 void File::write(const std::string& text) {
-    printf("%s", text.c_str());
+    this->printf("%s", text.c_str());
 }
 
 /*****************************************************************************/
 
 void File::writeLine(const std::string& line) {
-    printf("%s\n", line.c_str());
+    this->printf("%s\n", line.c_str());
 }
 
 /*****************************************************************************/

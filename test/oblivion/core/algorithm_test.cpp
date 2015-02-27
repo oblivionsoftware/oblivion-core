@@ -57,7 +57,7 @@ TEST(AlgorithmTest, MapKeys) {
     std::vector<int32> keys;
     map_keys(m, std::back_inserter(keys));
 
-    EXPECT_EQ(3, keys.size());
+    EXPECT_EQ(3u, keys.size());
     EXPECT_EQ(1, keys[0]);
     EXPECT_EQ(2, keys[1]);
     EXPECT_EQ(3, keys[2]);
@@ -74,7 +74,7 @@ TEST(AlgorithmTest, MapValues) {
     std::vector<int32> values;
     map_values(m, std::back_inserter(values));
 
-    EXPECT_EQ(3, values.size());
+    EXPECT_EQ(3u, values.size());
     EXPECT_EQ(2, values[0]);
     EXPECT_EQ(4, values[1]);
     EXPECT_EQ(6, values[2]);
@@ -89,16 +89,16 @@ TEST(AlgorithmTest, Erase) {
     v.push_back(3);
 
     erase(v, 2);
-    EXPECT_EQ(2, v.size());
+    EXPECT_EQ(2u, v.size());
 
     erase(v, 4);
-    EXPECT_EQ(2, v.size());
+    EXPECT_EQ(2u, v.size());
 
     erase(v, 3);
-    EXPECT_EQ(1, v.size());
+    EXPECT_EQ(1u, v.size());
 
     erase(v, 1);
-    EXPECT_EQ(0, v.size());
+    EXPECT_EQ(0u, v.size());
 }
 
 /******************************************************************************/
@@ -114,7 +114,7 @@ TEST(AlgorithmTest, EraseIf) {
         return v <= 2;
     });
 
-    EXPECT_EQ(2, v.size());
+    EXPECT_EQ(2u, v.size());
     EXPECT_EQ(3, v[0]);
     EXPECT_EQ(4, v[1]);
 }
